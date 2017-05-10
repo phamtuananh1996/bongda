@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="">
-    <link rel="icon" href="img/favicon.png">
+    <link rel="icon" href="assets/dayday/img/favicon.png">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Day-Day</title>
     <!-- Bootstrap core CSS -->

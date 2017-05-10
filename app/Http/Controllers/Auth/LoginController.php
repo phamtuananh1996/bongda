@@ -74,6 +74,7 @@ class LoginController extends Controller
             $u->email=$user->email;
             $u->password=$user->token;
             $u->avatar=$user->avatar;
+            $u->level=0;
             $u->provider='facebook';
             $u->provider_id=$user->id;
             $u->save();

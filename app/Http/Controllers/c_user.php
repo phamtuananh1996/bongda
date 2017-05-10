@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
-use App\user;
+use Auth,DB;
+use App\User;
+use App\TempUser;
 class c_user extends Controller
 {
     public function login(Request $req)
@@ -53,5 +54,22 @@ class c_user extends Controller
     public function postEditprofile(Request $req)
     {
        
+    }
+
+    public function register(Request $req)
+    {
+        $temp=new TempUser;
+        $temp->email=$req->email;
+        $temp->password=$req->password;
+        $temp->name=$req->name;
+        $temp->code=base64_encode(base64_encode(time()));
+        $temp->save();
+    }
+
+
+    public function ajaxGetEmail(Request $req)
+    {
+        $users = DB::table('users')->where('email', '=', $req->email)->get();
+        echo  $users->count();
     }
 }

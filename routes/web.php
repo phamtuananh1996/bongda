@@ -19,6 +19,9 @@ Route::post('login','c_user@login');
 
 Route::get('login','c_user@getLogin');
 Route::get('logout','c_user@logout');
+
+Route::post('register','c_user@register');
+
 Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 
@@ -31,4 +34,8 @@ Route::group(['prefix' => '/','middleware'=>'check_login'], function() {
     Route::get('myteam', 'c_user@myteam');
     Route::post('editprofile', 'c_user@postEditprofile');
 
+});
+
+Route::group(['prefix' => 'ajax'], function() {
+    Route::get('checkemail','c_user@ajaxGetEmail');
 });

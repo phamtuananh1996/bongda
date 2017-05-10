@@ -95,20 +95,21 @@
                       <span class="icon-text">Sign Up</span>
                     </h4>
                     <p class="text-muted">Create a new account</p>
-                    <form action="register" method="post">
+                    <form action="register" method="post" id="form_register">
+                    {{csrf_field()}}
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Full Name">
+                        <input type="text" class="form-control" name="name" required placeholder="Full Name">
                       </div>
                       <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Email">
+                        <input type="email" class="form-control" id="email" name="email" required placeholder="Email">
                       </div>
                       <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Password">
+                        <input type="password" class="form-control" maxlength="100" minlength="6" id="password" name="password" required placeholder="Password">
                       </div>
                       <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Confirm Password">
+                        <input type="password" class="form-control" id="re_password" required name="re_password" placeholder="Confirm Password">
                       </div>
-                      <button type="submit" class="btn btn-azure">Register</button>
+                      <button id="register" class="btn btn-azure">Register</button>
                     </form>
                   </div>
                 </div>
@@ -128,3 +129,43 @@
 
 <!-- Mirrored from demos.bootdey.com/dayday/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 08 May 2017 10:25:40 GMT -->
 </html>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var check=0;
+    $("#form_register").click(function(event) {
+      $.get('ajax/checkemail', {email: $("#email").val()}, function(data, textStatus, xhr) {
+          check=data;
+        });
+    });
+    $("#form_register").submit(function(event) {
+      if($("#password").val()===$("#re_password").val())
+      {
+        
+        if(check>0)
+          {
+
+             $("#email").css({
+               'border-color': 'red',
+             });
+            return false;
+          }
+          else
+          {
+            return true;
+          }
+          return false;
+      }
+      else
+      {
+        $("#re_password").css({
+          'border-color': 'red',
+        });
+         $("#password").css({
+          'border-color': 'red',
+        });
+        return false;
+      }
+    });
+  });
+</script>
