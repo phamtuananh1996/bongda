@@ -92,7 +92,38 @@
         
             <!-- ACTIVITY TAB CONTENT -->
             <div class="tab-pane activity" id="activity-tab">
-            
+               <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon">Name</span>
+                        <input value="{{$user_login->name}}" type="text" name="name" class="form-control" placeholder="Username">
+                      </div>
+                    </div>
+
+                   <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon">phone</span>
+                        <input value="{{$user_login->phone}}" type="number" class="form-control" placeholder="number phone">
+                      </div>
+                    </div>
+                      
+                     <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon">birthday</span>
+                        <input value="" type="date" class="form-control" placeholder="birthday">
+                      </div>
+                    </div>
+
+                     <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon">Address</span>
+                        <input value="{{$user_login->Address}}" type="text" class="form-control" placeholder="Address">
+                      </div>
+                    </div>
+                        
+                    <div class="form-group">
+                    <label for="comment">describe:</label>
+                      <textarea class="form-control" rows="5" id="comment"></textarea>
+                    </div>
              
             </div>
             <!-- END ACTIVITY TAB CONTENT -->
