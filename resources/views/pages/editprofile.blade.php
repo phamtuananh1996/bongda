@@ -91,8 +91,19 @@
             <!-- END PROFILE TAB CONTENT -->
         
             <!-- ACTIVITY TAB CONTENT -->
-            <div class="tab-pane activity" id="activity-tab">
-               <div class="form-group">
+            <div class="tab-pane profile " id="activity-tab">
+
+              <div class="row">
+                <div class="col-md-3">
+                 
+                </div>
+                
+                <div class="col-md-9">
+                  <div class="user-info-right">
+
+                    <div class="basic-info">
+
+                     <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon">Name</span>
                         <input value="{{$user_login->name}}" type="text" name="name" class="form-control" placeholder="Username">
@@ -124,7 +135,15 @@
                     <label for="comment">describe:</label>
                       <textarea class="form-control" rows="5" id="comment"></textarea>
                     </div>
-             
+                    
+                    
+                      
+                    </div>
+
+                    
+                  </div>
+                </div>
+              </div>
             </div>
             <!-- END ACTIVITY TAB CONTENT -->
           </form>
