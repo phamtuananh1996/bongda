@@ -13,7 +13,9 @@
           <ul class="nav nav-tabs nav-tabs-custom-colored tabs-iconized">
             <li class="active"><a href="#profile-tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-user"></i> Profile</a></li>
             <li class=""><a href="#activity-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-rss"></i> skin</a></li>
+            @if($user_login->provider==null)
             <li class=""><a href="#settings-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-gear"></i> Settings</a></li>
+            @endif
             <li class="pull-right"><a onclick="document.getElementById('myform').submit()" class="btn btn-custom-primary"><i class="fa fa-floppy-o"></i> Save Changes</a></li>
           </ul>
           <!-- END NAV TABS -->

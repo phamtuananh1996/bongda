@@ -19,9 +19,15 @@ Route::post('login','c_user@login');
 
 Route::get('login','c_user@getLogin');
 Route::get('logout','c_user@logout');
-
+Route::get('notification', function() {
+    return view('pages.notification');
+});
+Route::get('forgotpassword', function() {
+    return view('pages.forgotpassword');
+});
+Route::post('forgotpassword','c_user@forgotpassword');
 Route::post('register','c_user@register');
-
+Route::get('register/comfirm','c_user@registerComfirm');
 Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 

@@ -58,63 +58,23 @@
             <div class="col-sm-10 col-sm-push-1 col-md-6 col-md-push-3 col-lg-6 col-lg-push-3">
               <div class="card-group animated flipInX">
                
-                <div class="card col-md-22">
-                  <div class="card-block">
-                    <div class="center">
-                      <h4 class="m-b-0"><span class="icon-text">Login</span></h4>
-                      @if(session('loi'))
-                      <p class="text-muted" style="color: red">{{session('loi')}}</p>
-                      @else
-                      <p class="text-muted">Access your account</p>
-                      @endif
-                    </div>
-                    <form action="login" method="post">
-                       {{csrf_field()}}
-                      <div class="form-group">
-                        <input type="email" required name="email" class="form-control" placeholder="Email Address">
-                      </div>
-                      <div class="form-group">
-                        <input type="password" required name="password" minlength="6" maxlength="50" class="form-control" placeholder="Password">
-                        <a href="forgotpassword" class="pull-xs-right">
-                          <small>Forgot?</small>
-                        </a>
-                        <div class="clearfix"></div>
-                      </div>
-                      <div class="center" style="margin-bottom: 10px">
-                        <button type="submit" class="btn btn-azure">Login</button>
-                      </div>
-                      <div class="center">
-                        <a href="login/facebook" class="btn  btn-azure">
-                          Login with Facebook
-                        </a>
-                      </div>
-                    </form>
-                  </div>
-                </div>
+                
                 <div class="card">
                   
                   <div class="card-block center">
                     <h4 class="m-b-0">
-                      <span class="icon-text">Sign Up</span>
+                      <span class="icon-text">Forgot Password</span>
                     </h4>
-                    <p class="text-muted">Create a new account</p>
-                    <form action="register" method="post" id="form_register">
+                    <p class="text-muted" id="notification">Enter your email address</p>
+                    <form action="forgotpassword" method="post" id="form_forgot">
                     {{csrf_field()}}
                       <div class="form-group">
-                        <input type="text" class="form-control" maxlength="50" minlength="2" name="name" required placeholder="Full Name">
-                      </div>
-                      <div class="form-group">
-                        <input type="email" class="form-control" id="email" name="email" required placeholder="Email">
-                      </div>
-                      <div class="form-group">
-                        <input type="password" class="form-control" maxlength="100" minlength="6" id="password" name="password" required placeholder="Password">
-                      </div>
-                      <div class="form-group">
-                        <input type="password" class="form-control" id="re_password" required name="re_password" placeholder="Confirm Password">
+                        <input type="text" class="form-control" maxlength="50" id="email" minlength="2" name="email" required placeholder="Email">
                       </div>
                      
+                      
                     </form>
-                     <button id="register" class="btn btn-azure">Register</button>
+                    <button id="submit" class="btn btn-azure">submit</button>
                   </div>
                 </div>
               </div>
@@ -133,43 +93,33 @@
 
 <!-- Mirrored from demos.bootdey.com/dayday/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 08 May 2017 10:25:40 GMT -->
 </html>
-
 <script type="text/javascript">
   $(document).ready(function() {
-   $(window).on('keydown', function(e) {
+      var check=0;
+    $(window).on('keydown', function(e) {
       if (e.which == 13) {
         return false;
       }
     });
-   $("#register").click(function(event) {
-    $.get('ajax/checkemail', {email: $("#email").val()}, function(data, textStatus, xhr) {
-      if($("#password").val()===$("#re_password").val())
-      {
-        
-        if(data>0)
+    $("#submit").click(function(event) {
+      $.get('ajax/checkemail', {email: $("#email").val()}, function(data, textStatus, xhr) {
+        check=data;
+        if(check==1)
         {
-         $("#email").css({
-           'border-color': 'red',
-         });
-       }
-       else
-       {
-        $('#form_register').submit();
-      }
-      
-    }
-    else
-    {
-      $("#re_password").css({
-        'border-color': 'red',
+          $("#form_forgot").submit();
+        }
+        else
+        {
+           $("#email").css({
+              'border-color': 'red',
+            });
+           $("#notification").css({
+              'color': 'red',
+            });
+           $("#notification").html('Email can\'t exists');
+        }
       });
-      $("#password").css({
-        'border-color': 'red',
-      });
-      
-    }
-  });
-  });
-    
+    });
+
   });
 </script>

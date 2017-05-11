@@ -1,7 +1,8 @@
 
   @extends('pages.layout')
   @section('main')
-
+  <script src="assets/dayday/assets/js/jquery.1.11.1.min.js"></script>
+  <script src="assets/dayday/bootstrap.3.3.6/js/bootstrap.min.js"></script>
     <!-- Begin page content -->
     <div class="container page-content ">
       
@@ -16,7 +17,7 @@
                       <img src="{{$user_login->avatar}}" alt="">
                   </a>
                   <h1>{{$user_login->name}}</h1>
-                  <p>{{$user_login->email}}</p>
+                  <p></p>
                 </div>
 
                 <ul class="nav nav-pills nav-stacked">

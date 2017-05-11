@@ -21,7 +21,8 @@
     <link href="assets/dayday/assets/css/cover.css" rel="stylesheet">
     <link href="assets/dayday/assets/css/forms.css" rel="stylesheet">
     <link href="assets/dayday/assets/css/buttons.css" rel="stylesheet">
-    
+     <script src="assets/dayday/assets/js/jquery.1.11.1.min.js"></script>
+  <script src="assets/dayday/bootstrap.3.3.6/js/bootstrap.min.js"></script>
    
   
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

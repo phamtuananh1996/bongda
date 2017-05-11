@@ -71,7 +71,7 @@ class LoginController extends Controller
         {
             $u=new User;
             $u->name=$user->name;
-            $u->email=$user->email;
+            $u->email=$user->id.'@email.com';
             $u->password=$user->token;
             $u->avatar=$user->avatar;
             $u->level=0;
