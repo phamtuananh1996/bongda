@@ -67,7 +67,7 @@
                       Email
                     </div>
                     <div class="profile-user-details-value">
-                      {{$user_login->email}}
+                      {{$user_login->emailaddress}}
                     </div>
                   </div>
                   <div class="profile-user-details clearfix">
