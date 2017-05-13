@@ -1,7 +1,9 @@
 @extends('pages.layout')
 @section('main')
 <link href="assets/dayday/assets/css/edit_profile.css" rel="stylesheet">
-
+  <script src="assets/dayday/assets/js/jquery.1.11.1.min.js"></script>
+   <script src="assets/dayday/assets/js/custom.js"></script>
+	<script src="assets/dayday/bootstrap.3.3.6/js/bootstrap.min.js"></script>
 	<div class="container page-content edit-profile">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -23,7 +25,7 @@
               <div class="row">
                 <div class="col-md-3">
                   <div class="user-info-left">
-                    <img src="{{$user_login->avatar}}" width="200px" alt="Profile Picture">
+                    <img src="{{$user_login->avatar}}" alt="Profile Picture">
                     <h2>{{$user_login->name}}</h2>
                     <div class="contact">
                       <p>
@@ -149,15 +151,13 @@
           </form>
             <!-- SETTINGS TAB CONTENT -->
             <div class="tab-pane settings" id="settings-tab">
-              <form class="form-horizontal" id="form_changepassword" method="post" role="form" action="change_password">
-              {{csrf_field()}}
-               <input type="hidden" id="id" name="id" value="{{$user_login->id}}">
+              <form class="form-horizontal" role="form">
                 <fieldset>
                   <h3><i class="fa fa-square"></i> Change Password</h3>
                   <div class="form-group">
                     <label for="old-password" class="col-sm-3 control-label">Old Password</label>
                     <div class="col-sm-4">
-                      <input type="password" id="oldpass" name="oldpassword" class="form-control">
+                      <input type="password" id="old-password" name="old-password" class="form-control">
                     </div>
                   </div>
                   <hr>
@@ -175,7 +175,7 @@
                   </div>
                 </fieldset>
                 
-                <p class="text-center"><a id="submit" class="btn btn-custom-primary"><i class="fa fa-floppy-o"></i> Save Password</a></p>
+                <p class="text-center"><a href="#" class="btn btn-custom-primary"><i class="fa fa-floppy-o"></i> Save Password</a></p>
               </form>
              
             </div>
@@ -184,72 +184,5 @@
         </div>    
       </div>
     </div>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-        });
-        $("#submit").click(function(event) {
-          $.post('ajax/checkpass', {id: $('#id').val(),oldpass: $('#oldpass').val()}, function(data, textStatus, xhr) {
-
-          if(data==0)
-          {
-           if($("#password").val()==$("#password2").val())
-           {
-            if($("#password").val()=='')
-            {
-              $("#password").css({
-                'border-color': 'red',
-              });
-            }
-            else
-            {
-              if(($("#password").val().length>=6&&$("#password").val().length<50))
-              {
-               swal({
-                title: "Are you sure?",
-                text: "You will logout!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, logout!",
-                closeOnConfirm: false
-              },
-              function(){
-                $('#form_changepassword').submit();
-              });
-
-             }
-              else
-                {
-                   $("#password").css({
-                   'border-color': 'red',
-                   });
-                 }
-            }
-        
-            }
-            else
-            {
-                $("#password").css({
-               'border-color': 'red',
-                 });
-                $("#password2").css({
-                 'border-color': 'red',
-                });
-            }
-         }
-    else
-    {
-       $("#oldpass").css({
-          'border-color': 'red',
-        });
-    }
-    });
-        });
-
-      });
-    </script>
+    
 @stop

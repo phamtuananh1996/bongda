@@ -7,7 +7,6 @@ use Auth,DB;
 use App\User;
 use App\TempUser;
 use Mail;
-use Hash;
 class c_user extends Controller
 {
     public function login(Request $req)
@@ -93,7 +92,7 @@ class c_user extends Controller
         });
 
 
-        return redirect('notification')->with(['note'=>'đăng ký']);
+        return redirect('notification');
     }
 
 
@@ -112,7 +111,6 @@ class c_user extends Controller
             $user=new User;
             $user->name=$tempuser->name;
             $user->email=$req->email;
-            $user->emailaddress=$req->email;
             $user->password=bcrypt($tempuser->password);
             $user->level=0;
             $user->save();
@@ -128,91 +126,6 @@ class c_user extends Controller
 
     public function forgotpassword(Request $req)
     {
-        $user=User::where('email',$req->email);
-        if($user->count()>0)
-        {
-            $u=User::find($user->first()->id);
-            $u->codeforgotpassword=md5(base64_encode(time()));
-            $u->save();
-            $data=$req->toArray();
-            $data['link']=$_SERVER['REDIRECT_URL'].'/comfirm?code='. $u->codeforgotpassword.'&email='.$req->email;
-            Mail::send('email.forgotpassword', $data, function ($message) use ($data){
-                $message->from('phamtuananh1110@gmail.com', 'dayday');
-          
-                $message->to($data['email']);
-
-                $message->replyTo('phamtuananh1110@gmail.com', 'dayday');
         
-                $message->subject('Link change password');
-            });
-
-            return redirect('notification')->with(['note'=>'thay đổi mật khẩu']);
-        }
-        else
-        {
-            return redirect('404');
-        }
-    }
-
-    public function forgotpasswordComfirm(Request $req)
-    {
-        $user=User::where('email',$req->email);
-        if($user->count()==0)
-        {
-            return redirect('404');
-        }
-        if($req->code===$user->first()->codeforgotpassword&&$user->count()>0)
-        {
-            return view('pages.changepassword',['email'=>$req->email]);
-        }
-        else
-        {
-            return redirect('404');
-        }
-    }
-    public function changePassword(Request $req)
-    {
-        $user=User::where('email',$req->email);
-        if($user->count()==0)
-        {
-            return redirect('404');
-        }
-        else
-        {
-            $u=User::find($user->first()->id);
-            $u->password=bcrypt($req->password);
-            $u->save();
-            return redirect('login');
-        }
-    }
-
-
-    public function change_password(Request $req)
-    {
-        $user=User::find($req->id);
-         if(Hash::check($req->oldpassword,$user->password))
-        {
-            $user->password=bcrypt($req->password);
-            $user->save();
-            Auth::logout();
-             return redirect('login');
-        }
-        else
-        {
-            return redirect('404');
-        }
-    }
-
-    public function ajaxCheckPass(Request $req)
-    {
-        $user=User::find($req->id);
-        if(Hash::check($req->oldpass,$user->password))
-        {
-            return 0;
-        }
-        else
-        {
-            return 1;
-        }
     }
 }
