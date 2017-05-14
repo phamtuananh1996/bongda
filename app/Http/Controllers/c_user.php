@@ -25,7 +25,15 @@ class c_user extends Controller
 
     public function getLogin()
     {
-        return view('pages.login');
+        if(Auth::check())
+        {
+            return redirect('home');
+        }
+        else
+        {
+             return view('pages.login');
+        }
+       
     }
 
     public function logout()
@@ -51,7 +59,7 @@ class c_user extends Controller
 
     public function postEditprofile(Request $req)
     {
-       
+       dd($req);
     }
 
     public function register(Request $req)

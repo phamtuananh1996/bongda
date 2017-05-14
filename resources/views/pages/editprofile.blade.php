@@ -96,6 +96,8 @@
               <div class="row">
                 <div class="col-md-3">
                  
+                    <img src="assets/dayday/img/photos/skill.svg" width="200">
+                 
                 </div>
                 
                 <div class="col-md-9">
@@ -104,38 +106,43 @@
                     <div class="basic-info">
 
                      <div class="form-group">
-                      <div class="input-group">
-                        <span class="input-group-addon">Name</span>
-                        <input value="{{$user_login->name}}" type="text" name="name" class="form-control" placeholder="Username">
-                      </div>
+                      
+                      <select class="form-control" id="position">
+                        <option>Position</option>
+                        <option>Huấn luyện viên</option>
+                        <option>Thủ môn</option>
+                        <option>Trung vệ</option>
+                        <option>Hậu vệ quét</option>
+                        <option>Hậu vệ tự do</option>
+                        <option>Hậu vệ cánh</option>
+                        <option>Tiền vệ phòng ngự</option>
+                        <option>Tiền vệ trung tâm</option>
+                        <option>Tiền vệ chạy cánh</option>
+                        <option>Tiền vệ tấn công</option>
+                      </select>
                     </div>
 
                    <div class="form-group">
                       <div class="input-group">
-                        <span class="input-group-addon">phone</span>
-                        <input value="{{$user_login->phone}}" type="number" class="form-control" placeholder="number phone">
+                        <span class="input-group-addon">Chiều cao (cm)</span>
+                        <input value="" type="number" class="form-control" placeholder="Chiều cao">
                       </div>
                     </div>
                       
                      <div class="form-group">
                       <div class="input-group">
-                        <span class="input-group-addon">birthday</span>
-                        <input value="" type="date" class="form-control" placeholder="birthday">
+                        <span class="input-group-addon">Cân nặng (kg) </span>
+                        <input value="" type="number" class="form-control" placeholder="Cân nặng">
                       </div>
-                    </div>
-
-                     <div class="form-group">
-                      <div class="input-group">
-                        <span class="input-group-addon">Address</span>
-                        <input value="{{$user_login->Address}}" type="text" class="form-control" placeholder="Address">
-                      </div>
-                    </div>
-                        
+                    </div> 
                     <div class="form-group">
-                    <label for="comment">describe:</label>
-                      <textarea class="form-control" rows="5" id="comment"></textarea>
+                    <label for="comment">Ưu điểm:</label>
+                      <textarea class="form-control" rows="3" id="comment"></textarea>
                     </div>
-                    
+                     <div class="form-group">
+                    <label for="comment">Nhược điểm:</label>
+                      <textarea class="form-control" rows="3" id="comment"></textarea>
+                    </div>
                     
                       
                     </div>
@@ -186,6 +193,38 @@
     </div>
     <script type="text/javascript">
       $(document).ready(function() {
+
+        $("#position").click(function(event) {
+          
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         $.ajaxSetup({
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
