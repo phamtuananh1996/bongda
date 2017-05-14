@@ -223,4 +223,23 @@ class c_user extends Controller
             return 1;
         }
     }
+
+    public function ajaxCheckposition(Request $req)
+    {
+        if(!empty($req->latitude) && !empty($req->longitude)){
+    //Send request and receive json data by latitude and longitude
+            $url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($req->latitude).','.trim($req->longitude).'&sensor=false';
+            $json = @file_get_contents($url);
+            $data = json_decode($json);
+            $status = $data->status;
+            if($status=="OK"){
+        
+                $location = $data->results[0]->formatted_address;
+            }else{
+                $location =  '';
+            }
+    
+            echo $location;
+        }
+    }
 }

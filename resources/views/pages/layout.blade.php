@@ -24,6 +24,8 @@
     <link href="assets/dayday/assets/css/forms.css" rel="stylesheet">
     <link href="assets/dayday/assets/css/buttons.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <link href="css/screen.css" rel="stylesheet">
+  <script type="text/javascript" src='js/jquery.validate.js'></script>
   <script src="assets/dayday/bootstrap.3.3.6/js/bootstrap.min.js"></script>
    <script src="assets/dayday/dist/sweetalert.min.js"></script>
   <link rel="stylesheet" type="text/css" href="assets/dayday/dist/sweetalert.css">

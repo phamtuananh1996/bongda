@@ -1,8 +1,7 @@
 @extends('pages.layout')
 @section('main')
 <link href="assets/dayday/assets/css/edit_profile.css" rel="stylesheet">
-<link href="css/screen.css" rel="stylesheet">
-<script type="text/javascript" src='js/jquery.validate.js'></script>
+
 	<div class="container page-content edit-profile">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">

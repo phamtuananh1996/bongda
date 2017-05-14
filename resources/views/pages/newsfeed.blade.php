@@ -1,7 +1,7 @@
 
   @extends('pages.layout')
   @section('main')
- 
+ <p>Your Location: <span id="location"></span></p>
  
     <!-- Begin page content -->
     <div class="container page-content ">
@@ -16,10 +16,43 @@
               <h4 class="modal-title">Modal Header</h4>
             </div>
             <div class="modal-body">
-              <p>Some text in the modal.</p>
+            <form method="post" action="post" id="fm_post">
+               {{ csrf_field() }}
+             <div class="form-group">
+             <label for="comment">Lời thách đấu:</label>
+              <textarea class="form-control" required maxlength="1000" minlength="3" rows="3"  name="content" id="comment"></textarea>
+            </div>
+            <div class="form-group">
+              <div class="input-group col-md-12">
+              <label for="phone">Số điện thoại liện hệ:</label>
+
+                <input value="{{$user_login->phone}}" required  minlength="10" maxlength="11" type="number" name="phone" class="form-control col-sm-12" placeholder="number phone"/>
+
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group col-md-12">
+              <label for="phone">Địa điểm: <a id="get_place">Lấy địa điểm của bạn</a> </label>
+                  <input id="place" readonly required type="text" name="place" class="form-control col-sm-12" placeholder="Địa điểm"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="team">Thông tin đội bóng của bạn:</label>
+              @if ($user_login->idclub)
+              <select class="form-control" required name="position" id="position">
+                <option value="">Position</option>
+              </select>
+              @else
+                (Bạn chưa có đội bóng ,hãy tạo đội hoặc gia nhập đội bóng gần bạn để mọi người biết thông tin về đội bóng của bạn)
+              @endif
+
+            </div>
+             <input type="hidden" id="latitude" name="latitude">
+             <input type="hidden" id="longtitude" name="longtitude">
+            </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" id="post_form" class="btn btn-azure pull-right">Đăng bài tìm đối thủ</button>
             </div>
           </div>
           
@@ -82,29 +115,36 @@
               <div class="row">
                 <div class="col-md-12">
                 <!-- post state form -->
-                  <div class="box profile-info n-border-top">
+                  <div class="box profile-info n-border-top" >
                     
-                    <div class="box-footer box-form" id="post">
-                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-azure pull-right">Đăng bài tìm đối thủ</button>
+                    <div class="box-footer box-form " id="post">
+                     
+                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-azure ">Trạng thái</button>
+                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-azure ">Nhận Đá hộ</button>
+                         <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-azure ">Tìm người 'chữa cháy'</button>
+                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-azure ">Đăng bài tìm đối thủ</button>
                         <ul class="nav nav-pills">
                             
                         </ul>
                     </div>
                   </div><!-- end post state form -->
-
+                  @foreach ($post as $post)
+                  
                   <!--   posts -->
                   <div class="box box-widget">
                     <div class="box-header with-border">
                       <div class="user-block">
-                        <img class="img-circle" src="img/Friends/guy-3.jpg" alt="User Image">
-                        <span class="username"><a href="#">John Breakgrow jr.</a></span>
-                        <span class="description">Shared publicly - 7:30 PM Today</span>
+                        <img class="img-circle" src="{{$post->user->avatar}}" alt="User Image">
+                        <span class="username"><a href="#">{{$post->user->name}}</a></span>
+                        <span class="description">{{$post->created_at}}</span>
                       </div>
                     </div>
 
                     <div class="box-body" style="display: block;">
-                      <img class="img-responsive show-in-modal" src="img/Post/young-couple-in-love.jpg" alt="Photo">
-                      <p>I took this photo this morning. What do you guys think?</p>
+                     
+                      <p style="font-size: 30px">{{$post->content}}</p>
+                      <p style="font-size: 20px">Liên hệ : {{$post->phone}}</p>
+                      <p style="font-size: 20px">Địa điểm : {{$post->place}}</p>
                       <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
                       <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
                       <span class="pull-right text-muted">127 likes - 3 comments</span>
@@ -143,187 +183,10 @@
                       </form>
                     </div>
                   </div><!--  end posts-->
+  {{-- expr --}}
+                  @endforeach
 
-
-                  <!-- post -->
-                  <div class="box box-widget">
-                    <div class="box-header with-border">
-                      <div class="user-block">
-                        <img class="img-circle" src="img/Friends/guy-3.jpg" alt="User Image">
-                        <span class="username"><a href="#">Jonathan Burke Jr.</a></span>
-                        <span class="description">Shared publicly - 7:30 PM Today</span>
-                      </div>
-                      <div class="box-tools">
-                      <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
-                        <i class="fa fa-circle-o"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                      </div>
-                    </div>
-                    <div class="box-body">
-                      <p>Far far away, behind the word mountains, far from the
-                      countries Vokalia and Consonantia, there live the blind
-                      texts. Separated they live in Bookmarksgrove right at</p>
-
-                      <p>the coast of the Semantics, a large language ocean.
-                      A small river named Duden flows by their place and supplies
-                      it with the necessary regelialia. It is a paradisematic
-                      country, in which roasted parts of sentences fly into
-                      your mouth.</p>
-
-                      <div class="attachment-block clearfix">
-                        <img class="attachment-img" src="img/Photos/2.jpg" alt="Attachment Image">
-                        <div class="attachment-pushed">
-                        <h4 class="attachment-heading"><a href="http://www.bootdey.com/">Lorem ipsum text generator</a></h4>
-                        <div class="attachment-text">
-                        Description about the attachment can be placed here.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry... <a href="#">more</a>
-                        </div>
-                        </div>
-                      </div>
-                      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-                      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                      <span class="pull-right text-muted">45 likes - 2 comments</span>
-                    </div>
-                    <div class="box-footer box-comments">
-                      <div class="box-comment">
-                        <img class="img-circle img-sm" src="img/Friends/guy-5.jpg" alt="User Image">
-                        <div class="comment-text">
-                          <span class="username">
-                          Maria Gonzales
-                          <span class="text-muted pull-right">8:03 PM Today</span>
-                          </span>
-                          It is a long established fact that a reader will be distracted
-                          by the readable content of a page when looking at its layout.
-                        </div>
-                      </div>
-                      <div class="box-comment">
-                        <img class="img-circle img-sm" src="img/Friends/guy-6.jpg" alt="User Image">
-                        <div class="comment-text">
-                          <span class="username">
-                          Nora Havisham
-                          <span class="text-muted pull-right">8:03 PM Today</span>
-                          </span>
-                          The point of using Lorem Ipsum is that it has a more-or-less
-                          normal distribution of letters, as opposed to using
-                          'Content here, content here', making it look like readable English.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="box-footer">
-                      <form action="#" method="post">
-                        <img class="img-responsive img-circle img-sm" src="img/Friends/guy-3.jpg" alt="Alt Text">
-                        <div class="img-push">
-                          <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
-                        </div>
-                      </form>
-                    </div>
-                  </div><!-- end post -->
-
-                  <!--  posts -->
-                  <div class="box box-widget">
-                    <div class="box-header with-border">
-                      <div class="user-block">
-                        <img class="img-circle" src="img/Friends/guy-3.jpg" alt="User Image">
-                        <span class="username"><a href="#">John Breakgrow jr.</a></span>
-                        <span class="description">Shared publicly - 7:30 PM Today</span>
-                      </div>
-                    </div>
-
-                    <div class="box-body" style="display: block;">
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ac iaculis ligula, eget efficitur nisi. In vel rutrum orci. Etiam ut orci volutpat, maximus quam vel, euismod orci. Nunc in urna non lectus malesuada aliquet. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam dignissim mi ac metus consequat, a pharetra neque molestie. Maecenas condimentum lorem quis vulputate volutpat. Etiam sapien diam
-                      </p>
-                      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-                      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                      <span class="pull-right text-muted">127 likes - 3 comments</span>
-                    </div>
-                    <div class="box-footer box-comments" style="display: block;">
-                      <div class="box-comment">
-                        <img class="img-circle img-sm" src="img/Friends/guy-2.jpg" alt="User Image">
-                        <div class="comment-text">
-                          <span class="username">
-                          Maria Gonzales
-                          <span class="text-muted pull-right">8:03 PM Today</span>
-                          </span>
-                          It is a long established fact that a reader will be distracted
-                          by the readable content of a page when looking at its layout.
-                        </div>
-                      </div>
-
-                      <div class="box-comment">
-                        <img class="img-circle img-sm" src="img/Friends/guy-3.jpg" alt="User Image">
-                        <div class="comment-text">
-                          <span class="username">
-                          Luna Stark
-                          <span class="text-muted pull-right">8:03 PM Today</span>
-                          </span>
-                          It is a long established fact that a reader will be distracted
-                          by the readable content of a page when looking at its layout.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="box-footer" style="display: block;">
-                      <form action="#" method="post">
-                        <img class="img-responsive img-circle img-sm" src="img/Friends/guy-3.jpg" alt="Alt Text">
-                        <div class="img-push">
-                          <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
-                        </div>
-                      </form>
-                    </div>
-                  </div><!--  end posts -->
-
-                  <!--   posts -->
-                  <div class="box box-widget">
-                    <div class="box-header with-border">
-                      <div class="user-block">
-                        <img class="img-circle" src="img/Friends/guy-3.jpg" alt="User Image">
-                        <span class="username"><a href="#">John Breakgrow jr.</a></span>
-                        <span class="description">Shared publicly - 7:30 PM Today</span>
-                      </div>
-                    </div>
-
-                    <div class="box-body" style="display: block;">
-                      <img class="img-responsive pad" src="img/Photos/3.jpg" alt="Photo">
-                      <p>I took this photo this morning. What do you guys think?</p>
-                      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-                      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                      <span class="pull-right text-muted">127 likes - 3 comments</span>
-                    </div>
-                    <div class="box-footer box-comments" style="display: block;">
-                      <div class="box-comment">
-                        <img class="img-circle img-sm" src="img/Friends/guy-2.jpg" alt="User Image">
-                        <div class="comment-text">
-                          <span class="username">
-                          Maria Gonzales
-                          <span class="text-muted pull-right">8:03 PM Today</span>
-                          </span>
-                          It is a long established fact that a reader will be distracted
-                          by the readable content of a page when looking at its layout.
-                        </div>
-                      </div>
-
-                      <div class="box-comment">
-                        <img class="img-circle img-sm" src="img/Friends/guy-3.jpg" alt="User Image">
-                        <div class="comment-text">
-                          <span class="username">
-                          Luna Stark
-                          <span class="text-muted pull-right">8:03 PM Today</span>
-                          </span>
-                          It is a long established fact that a reader will be distracted
-                          by the readable content of a page when looking at its layout.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="box-footer" style="display: block;">
-                      <form action="#" method="post">
-                        <img class="img-responsive img-circle img-sm" src="img/Friends/guy-3.jpg" alt="Alt Text">
-                        <div class="img-push">
-                          <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
-                        </div>
-                      </form>
-                    </div>
-                  </div><!--  end posts -->
+                 
                 </div>
               </div>
             </div><!-- end left posts-->
@@ -477,6 +340,62 @@
     
   
     <script type="text/javascript">
+
+
+
+
+
+      $(document).ready(function() {
+
+
+       $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+
+
+       $('#get_place').click(function(event) {
+          if (navigator.geolocation) {
+         navigator.geolocation.getCurrentPosition(showLocation);
+         } else { 
+          alert('ban phai cho phap lay vi tri');
+        }      
+
+       });
+        
+
+        $('#post_form').click(function(event) {
+          $("#fm_post").submit();
+        });
+      $("#fm_post").validate();
+ 
+function showLocation(position) {
+
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+
+      $('#latitude').val(latitude);
+      $('#longtitude').val(longitude);
+    $.ajax({
+        type:'POST',
+        url:'ajax/getposition',
+        data:'latitude='+latitude+'&longitude='+longitude,
+        success:function(msg){
+            if(msg){
+             
+              $("#place").show();
+               $("#place").val(msg);
+            }else{
+               $("#get_place").hide();
+                $("#place").val('Not Available');
+            }
+        }
+    });
+      }
+});
+
+
       $(window).scroll(function() {
         if ($(this).scrollTop() < 20) {
           $('#positionpost').hide();

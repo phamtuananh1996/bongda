@@ -33,19 +33,21 @@ Route::get('login/facebook', 'Auth\LoginController@redirectToProvider');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 Route::post('changepassword', 'c_user@changePassword');
 Route::group(['prefix' => '/','middleware'=>'check_login'], function() {
-    Route::get('home', function() {
-        return view('pages.newsfeed');
-    });
+    Route::get('home', 'c_home@home');
     Route::get('profile', 'c_user@proFile');
     Route::get('editprofile', 'c_user@editProfile');
     Route::get('myteam', 'c_user@myteam');
     Route::post('editprofile', 'c_user@postEditprofile');
     Route::post('change_password', 'c_user@change_password');
+
+     Route::post('post','c_post@post');
 });
 
 Route::group(['prefix' => 'ajax','middleware'=>'check_login'], function() {
     Route::get('checkemail','c_user@ajaxGetEmail');
-     Route::post('checkpass','c_user@ajaxCheckPass');
+    Route::post('checkpass','c_user@ajaxCheckPass');
+
+    Route::post('getposition','c_user@ajaxCheckposition');
 });
 
 Route::get('404', function() {
