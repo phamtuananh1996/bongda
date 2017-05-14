@@ -7,7 +7,7 @@
             <!-- NAV TABS -->
             
          <div class="tab-content profile-page">
-           	<h1>vui lòng kiểm tra hộp thư để xác nhận đăng ký</h1>
+           	<h1>vui lòng kiểm tra hộp thư để xác nhận {{session('note')}}</h1>
         </div> 
 
 

@@ -3,6 +3,7 @@
   
 <!-- Mirrored from demos.bootdey.com/dayday/home.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 08 May 2017 10:24:43 GMT -->
 <head>
+<base href="{{asset('') }}">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,7 +24,8 @@
     <link href="assets/dayday/assets/css/buttons.css" rel="stylesheet">
      <script src="assets/dayday/assets/js/jquery.1.11.1.min.js"></script>
   <script src="assets/dayday/bootstrap.3.3.6/js/bootstrap.min.js"></script>
-   
+   <script src="assets/dayday/dist/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="assets/dayday/dist/sweetalert.css">
   
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

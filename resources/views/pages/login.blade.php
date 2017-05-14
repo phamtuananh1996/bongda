@@ -83,12 +83,13 @@
                       <div class="center" style="margin-bottom: 10px">
                         <button type="submit" class="btn btn-azure">Login</button>
                       </div>
-                      <div class="center">
+                     
+                    </form>
+                     <div class="center">
                         <a href="login/facebook" class="btn  btn-azure">
                           Login with Facebook
                         </a>
                       </div>
-                    </form>
                   </div>
                 </div>
                 <div class="card">
