@@ -1,20 +1,21 @@
 @extends('pages.layout')
 @section('main')
 <link href="assets/dayday/assets/css/edit_profile.css" rel="stylesheet">
-
+<link href="css/screen.css" rel="stylesheet">
+<script type="text/javascript" src='js/jquery.validate.js'></script>
 	<div class="container page-content edit-profile">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <!-- NAV TABS -->
-            <form method="post" action="editprofile" id="myform">
-             {{ csrf_field() }}
+            
           <ul class="nav nav-tabs nav-tabs-custom-colored tabs-iconized">
             <li class="active"><a href="#profile-tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-user"></i> Profile</a></li>
-            <li class=""><a href="#activity-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-rss"></i> skin</a></li>
+            <li class=""><a href="#activity-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-rss"></i> skill</a></li>
             @if($user_login->provider==null)
             <li class=""><a href="#settings-tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-gear"></i> Settings</a></li>
             @endif
-            <li class="pull-right"><a onclick="document.getElementById('myform').submit()" class="btn btn-custom-primary"><i class="fa fa-floppy-o"></i> Save Changes</a></li>
+         
+          
           </ul>
           <!-- END NAV TABS -->
           <div class="tab-content profile-page">
@@ -23,6 +24,8 @@
               <div class="row">
                 <div class="col-md-3">
                   <div class="user-info-left">
+                  <form method="post" action="editprofile" id="myform">
+                   {{ csrf_field() }}
                     <img src="{{$user_login->avatar}}" width="200px" alt="Profile Picture">
                     <h2>{{$user_login->name}}</h2>
                     <div class="contact">
@@ -49,38 +52,39 @@
                      <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon">Name</span>
-                        <input value="{{$user_login->name}}" type="text" name="name" class="form-control" placeholder="Username">
+                        <input value="{{$user_login->name}}" required type="text" name="name" class="form-control" placeholder="Username">
                       </div>
                     </div>
 
                    <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon">phone</span>
-                        <input value="{{$user_login->phone}}" type="number" class="form-control" placeholder="number phone">
+                        <input value="{{$user_login->phone}}" minlength="10" maxlength="11" type="number" name="phone" class="form-control" placeholder="number phone">
                       </div>
                     </div>
                       
                      <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon">birthday</span>
-                        <input value="" type="date" class="form-control" placeholder="birthday">
+                        <input value="" type="date" name="birthday" class="form-control" placeholder="birthday">
                       </div>
                     </div>
 
                      <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon">Address</span>
-                        <input value="{{$user_login->Address}}" type="text" class="form-control" placeholder="Address">
+                        <input value="{{$user_login->Address}}" maxlength="200" minlength="3" name="address" type="text" class="form-control" placeholder="Address">
                       </div>
                     </div>
                   			
                     <div class="form-group">
                     <label for="comment">describe:</label>
-                      <textarea class="form-control" rows="5" id="comment"></textarea>
+                      <textarea minlength="10" maxlength="500" class="form-control" rows="5" name="describe" id="comment"></textarea>
                     </div>
                     
                     
-                  		
+                  		   <a id="save" class="btn btn-custom-primary pull-right"><i class="fa fa-floppy-o"></i> Save Profile</a>
+                        </form>
                   	</div>
 
                     
@@ -92,7 +96,8 @@
         
             <!-- ACTIVITY TAB CONTENT -->
             <div class="tab-pane profile " id="activity-tab">
-
+               <form method="post" action="editprofile" id="formkill">
+                   {{ csrf_field() }}
               <div class="row">
                 <div class="col-md-3">
                  
@@ -107,8 +112,8 @@
 
                      <div class="form-group">
                       
-                      <select class="form-control" id="position">
-                        <option>Position</option>
+                      <select class="form-control" required name="position" id="position">
+                        <option value="">Position</option>
                         <option>Huấn luyện viên</option>
                         <option>Thủ môn</option>
                         <option>Trung vệ</option>
@@ -125,26 +130,26 @@
                    <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon">Chiều cao (cm)</span>
-                        <input value="" type="number" class="form-control" placeholder="Chiều cao">
+                        <input value="" type="number" name="height" class="form-control" placeholder="Chiều cao">
                       </div>
                     </div>
                       
                      <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon">Cân nặng (kg) </span>
-                        <input value="" type="number" class="form-control" placeholder="Cân nặng">
+                        <input value="" type="number" name="weight" class="form-control" placeholder="Cân nặng">
                       </div>
                     </div> 
                     <div class="form-group">
                     <label for="comment">Ưu điểm:</label>
-                      <textarea class="form-control" rows="3" id="comment"></textarea>
+                      <textarea class="form-control" rows="2" name="advantages" id="comment"></textarea>
                     </div>
                      <div class="form-group">
                     <label for="comment">Nhược điểm:</label>
-                      <textarea class="form-control" rows="3" id="comment"></textarea>
+                      <textarea class="form-control" rows="3" name="disadvantages" id="comment"></textarea>
                     </div>
-                    
-                      
+                       <a id="saveskill" class="btn btn-custom-primary pull-right"><i class="fa fa-floppy-o"></i> Save skill</a>
+                      </form>
                     </div>
 
                     
@@ -153,13 +158,13 @@
               </div>
             </div>
             <!-- END ACTIVITY TAB CONTENT -->
-          </form>
+         
             <!-- SETTINGS TAB CONTENT -->
             <div class="tab-pane settings" id="settings-tab">
               <form class="form-horizontal" id="form_changepassword" method="post" role="form" action="change_password">
               {{csrf_field()}}
                <input type="hidden" id="id" name="id" value="{{$user_login->id}}">
-                <fieldset>
+               
                   <h3><i class="fa fa-square"></i> Change Password</h3>
                   <div class="form-group">
                     <label for="old-password" class="col-sm-3 control-label">Old Password</label>
@@ -180,7 +185,7 @@
                       <input type="password" id="password2" name="password2" class="form-control">
                     </div>
                   </div>
-                </fieldset>
+               
                 
                 <p class="text-center"><a id="submit" class="btn btn-custom-primary"><i class="fa fa-floppy-o"></i> Save Password</a></p>
               </form>
@@ -194,12 +199,15 @@
     <script type="text/javascript">
       $(document).ready(function() {
 
-        $("#position").click(function(event) {
-          
+        $("#save").click(function(event) {
+           $("#myform").submit();
+        });
+        $("#saveskill").click(function(event) {
+           $("#formkill").submit();
         });
 
-
-
+        $("#myform").validate();
+        $("#formkill").validate();
 
 
 

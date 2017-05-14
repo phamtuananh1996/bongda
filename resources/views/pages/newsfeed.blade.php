@@ -1,12 +1,35 @@
 
   @extends('pages.layout')
   @section('main')
-  <script src="assets/dayday/assets/js/jquery.1.11.1.min.js"></script>
-  <script src="assets/dayday/bootstrap.3.3.6/js/bootstrap.min.js"></script>
+ 
+ 
     <!-- Begin page content -->
     <div class="container page-content ">
       
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+          
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+              <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+
+      
       <div class="row">
+
         <!-- left links -->
         <div class="col-md-3">
           <div class="profile-nav">
@@ -60,16 +83,11 @@
                 <div class="col-md-12">
                 <!-- post state form -->
                   <div class="box profile-info n-border-top">
-                    <form>
-                        <textarea class="form-control input-lg p-text-area" rows="2" placeholder="Whats in your mind today?"></textarea>
-                    </form>
-                    <div class="box-footer box-form">
-                        <button type="button" class="btn btn-azure pull-right">Post</button>
+                    
+                    <div class="box-footer box-form" id="post">
+                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-azure pull-right">Đăng bài tìm đối thủ</button>
                         <ul class="nav nav-pills">
-                            <li><a href="#"><i class="fa fa-map-marker"></i></a></li>
-                            <li><a href="#"><i class="fa fa-camera"></i></a></li>
-                            <li><a href="#"><i class=" fa fa-film"></i></a></li>
-                            <li><a href="#"><i class="fa fa-microphone"></i></a></li>
+                            
                         </ul>
                     </div>
                   </div><!-- end post state form -->
@@ -456,4 +474,17 @@
       </div>
     </div>
 
+    
+  
+    <script type="text/javascript">
+      $(window).scroll(function() {
+        if ($(this).scrollTop() < 20) {
+          $('#positionpost').hide();
+          $('#post').show();
+        } else {
+          $('#positionpost').show();
+          $('#post').hide();
+        }
+      });
+    </script>
     @stop

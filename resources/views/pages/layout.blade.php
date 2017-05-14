@@ -15,6 +15,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Day-Day</title>
     <!-- Bootstrap core CSS -->
+   
     <link href="assets/dayday/bootstrap.3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/dayday/font-awesome.4.6.1/css/font-awesome.min.css" rel="stylesheet">
     <link href="assets/dayday/assets/css/animate.min.css" rel="stylesheet">
@@ -22,7 +23,7 @@
     <link href="assets/dayday/assets/css/cover.css" rel="stylesheet">
     <link href="assets/dayday/assets/css/forms.css" rel="stylesheet">
     <link href="assets/dayday/assets/css/buttons.css" rel="stylesheet">
-     <script src="assets/dayday/assets/js/jquery.1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="assets/dayday/bootstrap.3.3.6/js/bootstrap.min.js"></script>
    <script src="assets/dayday/dist/sweetalert.min.js"></script>
   <link rel="stylesheet" type="text/css" href="assets/dayday/dist/sweetalert.css">
@@ -50,6 +51,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+           <li><a id="positionpost" class="btn btn-azure pull-right " data-toggle="modal" data-target="#myModal" style="display: none;color: #fff"> Đăng bài tìm đối thủ</a></li>
            <li><a href="home">Home</a></li>
             <li class="actives"><a href="profile">Profile</a></li>
             <li class="actives"><a href="myteam">My Team</a></li>
@@ -59,7 +61,7 @@
         </div>
       </div>
     </nav>
-
+    
     @yield('main')
 
     <footer class="footer">
