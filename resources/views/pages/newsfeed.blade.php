@@ -113,16 +113,16 @@
             <!-- left posts-->
             <div class="col-md-12">
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12" id="newsfeed">
                 <!-- post state form -->
                   <div class="box profile-info n-border-top" >
                     
                     <div class="box-footer box-form " id="post">
                      
-                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-azure ">Trạng thái</button>
+                        {{-- <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-azure ">Trạng thái</button>
                         <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-azure ">Nhận Đá hộ</button>
-                         <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-azure ">Tìm người 'chữa cháy'</button>
-                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-azure ">Đăng bài tìm đối thủ</button>
+                         <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-azure ">Tìm người 'chữa cháy'</button> --}}
+                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-azure pull-right">Đăng bài tìm đối thủ</button>
                         <ul class="nav nav-pills">
                             
                         </ul>
@@ -146,39 +146,42 @@
                       <p style="font-size: 20px">Liên hệ : {{$post->phone}}</p>
                       <p style="font-size: 20px">Địa điểm : {{$post->place}}</p>
                       <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-                      <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
-                      <span class="pull-right text-muted">127 likes - 3 comments</span>
-                    </div>
-                    <div class="box-footer box-comments" style="display: block;">
-                      <div class="box-comment">
-                        <img class="img-circle img-sm" src="img/Friends/guy-2.jpg" alt="User Image">
-                        <div class="comment-text">
-                          <span class="username">
-                          Maria Gonzales
-                          <span class="text-muted pull-right">8:03 PM Today</span>
-                          </span>
-                          It is a long established fact that a reader will be distracted
-                          by the readable content of a page when looking at its layout.
-                        </div>
-                      </div>
 
+                      @if ($post->like->where('user_id',$user_login->id)->isEmpty())
+                        <button type="button" id='like' data-post_id="{{$post->id}}" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Thích</button>
+                      @else
+                        <button type="button" id="dislike" data-post_id="{{$post->id}}" class="btn btn-default btn-xs" style="border-color: blue; color: blue;">Đã Thích</button>
+                      @endif
+                     
+
+                     
+                      
+
+                      <span class="pull-right text-muted"><span id="{{$post->id}}_like_count">{{$post->like->count()}}</span> Thích - <span id="{{$post->id}}_comment_count">{{$post->comment->count()}}</span> comments</span>
+                    </div>
+                    <div class="box-footer box-comments" id="{{$post->id}}_box_comment" style="display: block;">
+                   
+                    @foreach ($post->comment->forPage(0, 5) as $comment)
                       <div class="box-comment">
-                        <img class="img-circle img-sm" src="img/Friends/guy-3.jpg" alt="User Image">
+                        <img class="img-circle img-sm" src="{{$comment->user->avatar}}" alt="User Image">
                         <div class="comment-text">
                           <span class="username">
-                          Luna Stark
-                          <span class="text-muted pull-right">8:03 PM Today</span>
+                           <a href="#"> {{$comment->user->name}}</a>
+                          <span class="text-muted pull-right">{{$comment->created_at}}</span>
                           </span>
-                          It is a long established fact that a reader will be distracted
-                          by the readable content of a page when looking at its layout.
+                            {{$comment->content}}
                         </div>
                       </div>
+                    @endforeach
+                      
+
+                      
                     </div>
                     <div class="box-footer" style="display: block;">
-                      <form action="#" method="post">
-                        <img class="img-responsive img-circle img-sm" src="img/Friends/guy-3.jpg" alt="Alt Text">
+                      <form id="comment_form" data-post_id="{{$post->id}}">
+                        <img class="img-responsive img-circle img-sm" name="{{$user_login->name}}" src="{{$user_login->avatar}}" alt="Alt Text">
                         <div class="img-push">
-                          <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
+                          <input type="text" id="{{$post->id}}_content_comment" class="form-control input-sm" placeholder="Press enter to post comment">
                         </div>
                       </form>
                     </div>
@@ -339,71 +342,5 @@
 
     
   
-    <script type="text/javascript">
-
-
-
-
-
-      $(document).ready(function() {
-
-
-       $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-      });
-
-
-       $('#get_place').click(function(event) {
-          if (navigator.geolocation) {
-         navigator.geolocation.getCurrentPosition(showLocation);
-         } else { 
-          alert('ban phai cho phap lay vi tri');
-        }      
-
-       });
-        
-
-        $('#post_form').click(function(event) {
-          $("#fm_post").submit();
-        });
-      $("#fm_post").validate();
- 
-function showLocation(position) {
-
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-
-      $('#latitude').val(latitude);
-      $('#longtitude').val(longitude);
-    $.ajax({
-        type:'POST',
-        url:'ajax/getposition',
-        data:'latitude='+latitude+'&longitude='+longitude,
-        success:function(msg){
-            if(msg){
-             
-              $("#place").show();
-               $("#place").val(msg);
-            }else{
-               $("#get_place").hide();
-                $("#place").val('Not Available');
-            }
-        }
-    });
-      }
-});
-
-
-      $(window).scroll(function() {
-        if ($(this).scrollTop() < 20) {
-          $('#positionpost').hide();
-          $('#post').show();
-        } else {
-          $('#positionpost').show();
-          $('#post').hide();
-        }
-      });
-    </script>
+    <script type="text/javascript" src="js/newsfeed.js"> </script>
     @stop

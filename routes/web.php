@@ -48,6 +48,11 @@ Route::group(['prefix' => 'ajax','middleware'=>'check_login'], function() {
     Route::post('checkpass','c_user@ajaxCheckPass');
 
     Route::post('getposition','c_user@ajaxCheckposition');
+
+    Route::post('like','c_like@ajaxLike');
+    Route::post('post','c_like@ajaxDislike');
+
+    Route::post('comment','c_comment@ajaxComment');
 });
 
 Route::get('404', function() {
