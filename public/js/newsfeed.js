@@ -1,5 +1,14 @@
  $(document).ready(function() {
 
+
+    function escapeHtml(unsafe) {
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+    }
       //ấn like
       $('#newsfeed').on('click', '#like', function(event) {
 
@@ -56,7 +65,7 @@
 
              $.post('ajax/comment', {post_id: id,content:comment}, function(data, textStatus, xhr) {
               
-                    $('#'+id+'_box_comment').append('<div class=\"box-comment\"><img class=\"img-circle img-sm\" src=\"'+image+'\" alt=\"User Image\"> <div class=\"comment-text\"><span class=\"username\"> <a href=\"#\"> '+name+'</a><span class=\"text-muted pull-right\">'+time+'</span> </span>'+comment+'</div></div>');
+                    $('#'+id+'_box_comment').append('<div class=\"box-comment\"><img class=\"img-circle img-sm\" src=\"'+image+'\" alt=\"User Image\"> <div class=\"comment-text\"><span class=\"username\"> <a href=\"#\"> '+name+'</a><span class=\"text-muted pull-right\">'+time+'</span> </span>'+escapeHtml(comment)+'</div></div>');
                     $('#'+id+'_content_comment').val('');
 
                     $('#'+id+'_comment_count').html( parseInt($('#'+id+'_comment_count').html())+1);
@@ -124,12 +133,4 @@ function showLocation(position) {
 });
 
 
-      $(window).scroll(function() {
-        if ($(this).scrollTop() < 20) {
-          $('#positionpost').hide();
-          $('#post').show();
-        } else {
-          $('#positionpost').show();
-          $('#post').hide();
-        }
-      });
+     

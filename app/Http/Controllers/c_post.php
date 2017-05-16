@@ -27,4 +27,10 @@ class c_post extends Controller
     		return redirect('404');
     	}
     }
+
+    public function ajaxData()
+    {
+       $post=Post::orderby('id','desc')->paginate(5);
+        return view('ajax.newsfeed',['post'=>$post]);
+    }
 }

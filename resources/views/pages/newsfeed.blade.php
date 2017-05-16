@@ -66,17 +66,19 @@
         <!-- left links -->
         <div class="col-md-3">
           <div class="profile-nav">
-            <div class="widget">
+            <div class="widget" >
               <div class="widget-body">
                 <div class="user-heading round">
                   <a href="profile">
                       <img src="{{$user_login->avatar}}" alt="">
                   </a>
                   <h1>{{$user_login->name}}</h1>
-                  <p></p>
+                    
+                     <button type="button" style="background: #6CD5EF !important" id="create" class="btn btn-azure center" ><i class="fa fa-plus"></i>Tạo đội bóng</button>
+                  
                 </div>
 
-                <ul class="nav nav-pills nav-stacked">
+                <ul class="nav nav-pills nav-stacked" >
                   <li class="active"><a href="#"> <i class="fa fa-user"></i> News feed</a></li>
                   <li>
                     <a href="#"> 
@@ -84,15 +86,15 @@
                       <span class="label label-info pull-right r-activity">9</span>
                     </a>
                   </li>
-                  <li><a href="#"> <i class="fa fa-calendar"></i> Events</a></li>
-                  <li><a href="#"> <i class="fa fa-image"></i> Photos</a></li>
+                  <li><a href="#"> <i class="fa fa-search"></i> Tìm đội bóng gần bạn</a></li>
+                  <li><a href="#"> <i class="fa fa-image"></i>Lời thách đấu gần bạn</a></li>
                   <li><a href="#"> <i class="fa fa-share"></i> Browse</a></li>
                   <li><a href="#"> <i class="fa fa-floppy-o"></i> Saved</a></li>
                 </ul>
               </div>
             </div>
 
-            <div class="widget">
+            {{-- <div class="widget">
               <div class="widget-body">
                 <ul class="nav nav-pills nav-stacked">
                   <li><a href="#"> <i class="fa fa-globe"></i> Pages</a></li>
@@ -102,7 +104,7 @@
                   <li><a href="#"> <i class="fa fa-users"></i> Groups</a></li>
                 </ul>
               </div>
-            </div>
+            </div> --}}
           </div>
         </div><!-- end left links -->
 
@@ -135,7 +137,7 @@
                     <div class="box-header with-border">
                       <div class="user-block">
                         <img class="img-circle" src="{{$post->user->avatar}}" alt="User Image">
-                        <span class="username"><a href="#">{{$post->user->name}}</a></span>
+                        <span class="username"><a href="profile/{{$post->user->id}}">{{$post->user->name}}</a></span>
                         <span class="description">{{$post->created_at}}</span>
                       </div>
                     </div>
@@ -166,7 +168,7 @@
                         <img class="img-circle img-sm" src="{{$comment->user->avatar}}" alt="User Image">
                         <div class="comment-text">
                           <span class="username">
-                           <a href="#"> {{$comment->user->name}}</a>
+                           <a href="profile/{{$comment->user->id}}"> {{$comment->user->name}}</a>
                           <span class="text-muted pull-right">{{$comment->created_at}}</span>
                           </span>
                             {{$comment->content}}
@@ -200,10 +202,10 @@
 
 
         <!-- right posts -->
-        <div class="col-md-3">
+        <div class="col-md-3 " >
          
           <!-- Friends activity -->
-          <div class="widget">
+          <div class="widget" >
             <div class="widget-header">
               <h3 class="widget-caption">Friends activity</h3>
             </div>
@@ -341,6 +343,30 @@
     </div>
 
     
+  <script type="text/javascript">
+    $('#create').click(function(event) {
+      window.location="createClub";
+    });
+   var page=1;
+       $(window).scroll(function() {
+        if ($(this).scrollTop() < 20) {
+          $('#positionpost').hide();
+          $('#post').show();
+        } else {
+          $('#positionpost').show();
+          $('#post').hide();
+        }
+       
+        if($(window).scrollTop() + $(window).height() == $(document).height()){
+              page=page + 1;
+              
+              $.get('ajax/home?page='+page, function(data) {
+                $('#newsfeed').append(data);
+            });
+
+              
+           }
+      });
+  </script>
   
-    <script type="text/javascript" src="js/newsfeed.js"> </script>
     @stop

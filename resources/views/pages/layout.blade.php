@@ -29,7 +29,7 @@
   <script src="assets/dayday/bootstrap.3.3.6/js/bootstrap.min.js"></script>
    <script src="assets/dayday/dist/sweetalert.min.js"></script>
   <link rel="stylesheet" type="text/css" href="assets/dayday/dist/sweetalert.css">
-  
+    <script type="text/javascript" src="js/newsfeed.js"> </script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -56,7 +56,7 @@
            <li><a id="positionpost" class="btn btn-azure pull-right " data-toggle="modal" data-target="#myModal" style="display: none;color: #fff"> Đăng bài tìm đối thủ</a></li>
            <li><a href="home">Home</a></li>
             <li class="actives"><a href="profile">Profile</a></li>
-            <li class="actives"><a href="myteam">My Team</a></li>
+            <li class="actives"><a href="myclub">My Team</a></li>
             <li><a href="logout">Logout</a></li>
            
           </ul>

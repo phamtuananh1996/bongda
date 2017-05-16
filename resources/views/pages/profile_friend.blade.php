@@ -1,19 +1,19 @@
    @extends('pages.layout')
    @section('main')
     <link href="assets/dayday/assets/css/profile2.css" rel="stylesheet">
-  <script src="assets/dayday/assets/js/jquery.1.11.1.min.js"></script>
+
     <script src="assets/dayday/assets/js/custom.js"></script>
-     <script src="assets/dayday/bootstrap.3.3.6/js/bootstrap.min.js"></script>
+
      <div class="container page-content">
       <div class="row" id="user-profile">
         <div class="col-md-4 col-xs-12">
           <div class="row-xs">
             <div class="main-box clearfix">
-              <h2>{{$user_login->name}}</h2>
+              <h2>{{$friend->name}}</h2>
               <div class="profile-status">
                 <i class="fa fa-check-circle"></i> chưa có club
               </div>
-              <img src="{{$user_login->avatar}}" alt="" class="profile-img img-responsive center-block show-in-modal">
+              <img src="{{$friend->avatar}}" alt="" class="profile-img img-responsive center-block show-in-modal">
               
               <div class="profile-details">
                 <ul class="fa-ul">
@@ -24,9 +24,9 @@
               </div>
               
               <div class="profile-message-btn center-block text-center">
-                <a href="editprofile" class="btn btn-azure">
-                  <i class="fa fa-edit"></i>
-                  Edit profile
+                <a class="btn btn-azure">
+                  <i class="fa fa-envelope"></i>
+                    Nhắn Tin
                 </a>
               </div>
             </div>
@@ -43,7 +43,7 @@
                       First Name
                     </div>
                     <div class="profile-user-details-value">
-                      {{$user_login->name}}
+                      {{$friend->name}}
                     </div>
                   </div>
                   <div class="profile-user-details clearfix">
@@ -59,8 +59,8 @@
                       Address
                     </div>
                     <div class="profile-user-details-value">
-                     @if ($user_login->address)
-                        {{$user_login->address}}
+                       @if ($friend->address)
+                        {{$friend->address}}
                       @else
                         chưa có địa chỉ
                       @endif
@@ -71,11 +71,12 @@
                       Email
                     </div>
                     <div class="profile-user-details-value">
-                       @if ($user_login->emailaddress)
-                        {{$user_login->emailaddress}}
+                      @if ($friend->emailaddress)
+                        {{$friend->emailaddress}}
                       @else
                         chưa có email
                       @endif
+                        
                     </div>
                   </div>
                   <div class="profile-user-details clearfix">
@@ -83,7 +84,7 @@
                       Phone number
                     </div>
                     <div class="profile-user-details-value">
-                      {{$user_login->phone}}
+                      {{$friend->phone}}
                     </div>
                   </div>
                 </div>
@@ -110,7 +111,7 @@
                     <div class="row">
                       <div class="col-md-12" id="newsfeed">
                         <!--   posts -->
-                          @foreach ($user_login->post->sortByDesc('id')->forPage(0,5) as $post)
+                        @foreach ($friend->post->sortByDesc('id')->forPage(0,5) as $post)
                           {{-- expr --}}
                        
                           <div class="box box-widget">
@@ -135,6 +136,10 @@
                               <button type="button" id="dislike" data-post_id="{{$post->id}}" class="btn btn-default btn-xs" style="border-color: blue; color: blue;">Đã Thích</button>
                               @endif
                               
+
+                              
+                              
+
                               <span class="pull-right text-muted"><span id="{{$post->id}}_like_count">{{$post->like->count()}}</span> Thích - <span id="{{$post->id}}_comment_count">{{$post->comment->count()}}</span> comments</span>
                             </div>
                             <div class="box-footer box-comments" id="{{$post->id}}_box_comment" style="display: block;">
@@ -150,8 +155,11 @@
                                  {{$comment->content}}
                                </div>
                              </div>
-                             @endforeach
-                             </div>
+                    @endforeach
+                      
+
+                      
+                    </div>
                     <div class="box-footer" style="display: block;">
                       <form id="comment_form" data-post_id="{{$post->id}}">
                         <img class="img-responsive img-circle img-sm" name="{{$user_login->name}}" src="{{$user_login->avatar}}" alt="Alt Text">
@@ -161,9 +169,8 @@
                       </form>
                     </div>
                   </div><!--  end posts-->
-                    @endforeach
-                            
 
+                        @endforeach
 
 
                         <!-- post -->

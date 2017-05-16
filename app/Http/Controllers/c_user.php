@@ -242,4 +242,17 @@ class c_user extends Controller
             echo $location;
         }
     }
+
+    public function profile_friend(Request $req)
+    {
+        if($req->id==Auth::user()->id)
+        {
+            return redirect('profile'); 
+        }
+        else
+        {
+            $friend=User::find($req->id);
+            return view('pages.profile_friend',['friend'=>$friend]);
+        }
+    }
 }

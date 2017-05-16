@@ -36,11 +36,12 @@ Route::group(['prefix' => '/','middleware'=>'check_login'], function() {
     Route::get('home', 'c_home@home');
     Route::get('profile', 'c_user@proFile');
     Route::get('editprofile', 'c_user@editProfile');
-    Route::get('myteam', 'c_user@myteam');
+    Route::get('myclub', 'c_user@myteam');
     Route::post('editprofile', 'c_user@postEditprofile');
     Route::post('change_password', 'c_user@change_password');
-
-     Route::post('post','c_post@post');
+    Route::get('profile/{id}', 'c_user@profile_friend');
+    Route::post('post','c_post@post');
+    Route::get('createClub', 'c_club@createClub');
 });
 
 Route::group(['prefix' => 'ajax','middleware'=>'check_login'], function() {
@@ -53,6 +54,8 @@ Route::group(['prefix' => 'ajax','middleware'=>'check_login'], function() {
     Route::post('post','c_like@ajaxDislike');
 
     Route::post('comment','c_comment@ajaxComment');
+
+    Route::get('home', 'c_post@ajaxData');
 });
 
 Route::get('404', function() {
