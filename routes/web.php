@@ -56,6 +56,12 @@ Route::group(['prefix' => 'ajax','middleware'=>'check_login'], function() {
     Route::post('comment','c_comment@ajaxComment');
 
     Route::get('home', 'c_post@ajaxData');
+
+     Route::post('postImage', 'c_user@postImage');
+
+    Route::post('getdistrict', 'c_club@ajaxGetDistrict');
+
+     Route::post('getward', 'c_club@ajaxGetWard');
 });
 
 Route::get('404', function() {

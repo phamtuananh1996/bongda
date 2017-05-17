@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Auth,DB;
 use App\User;
@@ -254,5 +254,11 @@ class c_user extends Controller
             $friend=User::find($req->id);
             return view('pages.profile_friend',['friend'=>$friend]);
         }
+    }
+
+    public function postImage(Request $req)
+    {
+       $path = Storage::putFile('avatars', $req->file('avatar'));
+        return $path;
     }
 }

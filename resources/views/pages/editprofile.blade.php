@@ -25,12 +25,12 @@
                   <div class="user-info-left">
                   <form method="post" action="editprofile" id="myform">
                    {{ csrf_field() }}
-                    <img src="{{$user_login->avatar}}" width="200px" alt="Profile Picture">
+                    <img src="{{$user_login->avatar}}" id="avatar" width="200px" alt="Profile Picture">
                     <h2>{{$user_login->name}}</h2>
                     <div class="contact">
                       <p>
                         <span class="file-input btn btn-azure btn-file">
-                          Change Avatar <input type="file" multiple="">
+                          Change Avatar <input type="file" id="avatar_input"  accept="image/*" multiple="">
                         </span>
                       </p>
                      
@@ -196,7 +196,31 @@
       </div>
     </div>
     <script type="text/javascript">
+
+
+
+
+
       $(document).ready(function() {
+
+          function file_change(f){
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            var img = document.getElementById("avatar");
+            img.src = e.target.result;
+            img.css({
+              'width': '200px',
+              
+            });
+          };
+          reader.readAsDataURL(f.files[0]);
+        }
+
+        $('#avatar_input').change(function(event) {
+          file_change(this);
+        });
+
+        
 
         $("#save").click(function(event) {
            $("#myform").submit();
@@ -212,7 +236,13 @@
 
 
 
-
+        $('form').on('change', '#avatar_input', function(event) {
+            
+            $.post('ajax/postImage', {image: $(this).val()}, function(data, textStatus, xhr) {
+             alert(data);
+            });
+           
+        });
 
 
 
