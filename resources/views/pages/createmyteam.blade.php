@@ -21,86 +21,32 @@
             	<div class="row">
           		<div class="col-md-12">
             	<div id="grid" class="row">
-                <div class="mix col-sm-3 page1 page4 margin30">
-                    <div class="item-img-wrap ">
-                        <img src="assets/dayday/img/Photos/2.jpg" class="img-responsive" alt="workimg">
-                        <div class="item-img-overlay">
-                            <a class="show-image">
-                                <span></span>
-                            </a>
-                        </div>
-                    </div> 
-                </div>
-                <div class="mix col-sm-3 page2 page3 margin30">
-                    <div class="item-img-wrap ">
-                        <img src="assets/dayday/img/Photos/1.jpg" class="img-responsive" alt="workimg">
-                        <div class="item-img-overlay">
-                            <a href="#" class="show-image">
-                                <span></span>
-                            </a>
-                        </div>
-                    </div> 
-                </div>
-                <div class="mix col-sm-3  page3 page2 margin30 ">
+              
+            
+                <div class="mix col-sm-3  page3 page2 margin30 " id="img">
                     <div class="item-img-wrap ">
                         <img src="assets/dayday/img/Photos/3.jpg" class="img-responsive" alt="workimg">
                         <div class="item-img-overlay">
-                            <a href="#" class="show-image">
+                            <a  class="show-image">
                                 <span></span>
                             </a>
                         </div>
                     </div> 
                 </div>
-                <div class="mix col-sm-3  page4 margin30">
-                    <div class="item-img-wrap ">
+              
+                <div class="mix col-sm-3  page3 page2 margin30 " id="img">
+                    <div class="item-img-wrap">
                         <img src="assets/dayday/img/Photos/4.jpg" class="img-responsive" alt="workimg">
                         <div class="item-img-overlay">
-                            <a href="#" class="show-image">
+                            <a  class="show-image">
                                 <span></span>
                             </a>
                         </div>
                     </div> 
                 </div>
-                <div class="mix col-sm-3 page1 margin30 ">
-                    <div class="item-img-wrap ">
-                        <img src="assets/dayday/img/Photos/5.jpg" class="img-responsive" alt="workimg">
-                        <div class="item-img-overlay">
-                            <a href="#" class="show-image">
-                                <span></span>
-                            </a>
-                        </div>
-                    </div> 
-                </div>
-                <div class="mix col-sm-3  page2 margin30">
-                    <div class="item-img-wrap ">
-                        <img src="assets/dayday/img/Photos/6.jpg" class="img-responsive" alt="workimg">
-                        <div class="item-img-overlay">
-                            <a href="#" class="show-image">
-                                <span></span>
-                            </a>
-                        </div>
-                    </div> 
-                </div>
-                <div class="mix col-sm-3  page3 margin30">
-                  <div class="item-img-wrap ">
-                      <img src="assets/dayday/img/Photos/7.jpg" class="img-responsive" alt="workimg">
-                      <div class="item-img-overlay">
-                          <a href="#" class="show-image">
-                              <span></span>
-                          </a>
-                      </div>
-                  </div> 
-                </div>
-                <div class="mix col-sm-3 page4  margin30">
-                    <div class="item-img-wrap ">
-                        <img src="assets/dayday/img/Photos/8.jpg" class="img-responsive" alt="workimg">
-                        <div class="item-img-overlay">
-                            <a href="#" class="show-image">
-                                <span></span>
-                            </a>
-                        </div>
-                    </div> 
-                </div>                                                            
+                
+                
+                                                                  
             </div>
             </div>
             </div>
@@ -242,6 +188,13 @@
     			});
 
     		});
+
+
+        $('#grid').on('click', '#img', function(event) {
+          var l=$(this).find('img').attr('src');
+          alert(l);
+        });
+
     	});
     </script>
 
