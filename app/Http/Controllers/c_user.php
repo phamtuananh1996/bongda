@@ -52,11 +52,7 @@ class c_user extends Controller
         return view('pages.editprofile');
     }
 
-    public function myteam()
-    {
-       return view('pages.myteam');
-    }
-
+  
     public function postEditprofile(Request $req)
     {
        dd($req);

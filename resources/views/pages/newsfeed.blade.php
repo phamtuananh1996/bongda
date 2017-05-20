@@ -73,9 +73,9 @@
                       <img src="{{$user_login->avatar}}" alt="">
                   </a>
                   <h1>{{$user_login->name}}</h1>
-                    
+
                      <button type="button" style="background: #6CD5EF !important" id="create" class="btn btn-azure center" ><i class="fa fa-plus"></i>Tạo đội bóng</button>
-                  
+                   
                 </div>
 
                 <ul class="nav nav-pills nav-stacked" >

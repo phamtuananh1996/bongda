@@ -15,17 +15,19 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Modal Header</h4>
+              <h4 class="modal-title">Chọn ảnh</h4>
             </div>
             <div class="modal-body">
             	<div class="row">
           		<div class="col-md-12">
             	<div id="grid" class="row">
               
-            
+            @foreach ($avatar_club as $avatar_club)
+              
+           
                 <div class="mix col-sm-3  page3 page2 margin30 " id="img">
                     <div class="item-img-wrap ">
-                        <img src="assets/dayday/img/Photos/3.jpg" class="img-responsive" alt="workimg">
+                        <img src="images/avatar_club/{{$avatar_club->link}}" width="100" height="100" alt="workimg">
                         <div class="item-img-overlay">
                             <a  class="show-image">
                                 <span></span>
@@ -34,16 +36,7 @@
                     </div> 
                 </div>
               
-                <div class="mix col-sm-3  page3 page2 margin30 " id="img">
-                    <div class="item-img-wrap">
-                        <img src="assets/dayday/img/Photos/4.jpg" class="img-responsive" alt="workimg">
-                        <div class="item-img-overlay">
-                            <a  class="show-image">
-                                <span></span>
-                            </a>
-                        </div>
-                    </div> 
-                </div>
+              @endforeach
                 
                 
                                                                   
@@ -65,9 +58,9 @@
               <div class="row">
                 <div class="col-md-3">
                   <div class="user-info-left">
-                  <form method="post" action="editprofile" id="myform">
+                  <form method="post" action="post_create_club" id="create_club_form">
                    {{ csrf_field() }}
-                    <img src="http://2.bp.blogspot.com/-3u3DEeeWg5w/UaxPIpl4TMI/AAAAAAAAADY/oG0IRmOd9ec/s1600/592px-FCB.svg.png" id="avatar" width="200px" alt="Profile Picture"/>
+                    <img src="images/avatar_club/fbc.png" id="avatar" width="200px" height="200px" alt="Profile Picture"/>
                     <h2></h2>
                     <div class="contact">
                       <p>
@@ -75,7 +68,7 @@
                           Chọn ảnh khác 
                         </span>
                       </p>
-                     
+                      <input type="hidden" value="images/avatar_club/fbc.png" name="avatar_club" id="avatar_club">
                       <ul class="list-inline social">
                         <li><a href="#" title="Facebook"><i class="fa fa-facebook-square"></i></a></li>
                         <li><a href="#" title="Twitter"><i class="fa fa-twitter-square"></i></a></li>
@@ -99,14 +92,14 @@
                      <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon">Số điện thoại</span>
-                        <input value="{{$user_login->phone}}" minlength="10" maxlength="11" type="number" name="phone" class="form-control" placeholder="number phone">
+                        <input value="{{$user_login->phone}}" required minlength="10" maxlength="11" type="number" name="phone" class="form-control" placeholder="number phone">
                       </div>
                     </div>
                      <label for="comment">(hãy chọn chính xác địa chỉ đội bóng.Điều này sẽ cho phép mọi người dễ tìm đội bóng của bạn hơn)</label>
                      <div class="row" style="margin-bottom: 10px">
                    <div class="form-group">
                    		<div class="col-sm-4">
-                       <select class="form-control" required name="position" id="province">
+                       <select class="form-control" required name="province" id="province">
                         <option value="">Tỉnh /Thành Phố</option>
                        	@foreach ($province as $province)
                        		 <option value="{{$province->provinceid}}">{{$province->name}}</option>
@@ -117,14 +110,14 @@
                       </div>
 
                       <div class="col-sm-4">
-                       <select class="form-control" required name="position" id="district">
+                       <select class="form-control" required  name="district" id="district">
                         <option value="">Quận/Huyện</option>
                        
                       </select>
                       </div>
 
                       <div class="col-sm-4">
-                       <select class="form-control" required name="position" id="ward">
+                       <select class="form-control" required name="ward" id="ward">
                         <option value="">Xã/Phường</option>
                         
                        
@@ -140,7 +133,7 @@
                     </div>
                     
                     
-                  		   <a id="save" class="btn btn-custom-primary pull-right"><i class="fa fa-floppy-o"></i> Tạo Đội Bóng</a>
+                  		   <a id="create" class="btn btn-custom-primary pull-right"><i class="fa fa-floppy-o"></i> Tạo Đội Bóng</a>
                         </form>
                   	</div>
 
@@ -166,7 +159,15 @@
     <script type="text/javascript">
     	$(document).ready(function() {
 
-    	
+
+         $('#create_club_form').validate();
+
+
+    	 $('#create').click(function(event) {
+          $('#create_club_form').submit();
+        });
+
+        
 
     		$('#province').change(function(event) {
 
@@ -190,9 +191,14 @@
     		});
 
 
+       
+
+
+
         $('#grid').on('click', '#img', function(event) {
           var l=$(this).find('img').attr('src');
-          alert(l);
+          $('#avatar').attr('src', l);
+          $('#avatar_club').val(l);
         });
 
     	});
