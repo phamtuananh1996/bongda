@@ -19,6 +19,7 @@ class c_post extends Controller
     		$post->phone=$req->phone;
     		$post->latitude=$req->latitude;
     		$post->longtitude=$req->longtitude;
+            $post->club_id=$req->club_id;
     		$post->save();
     		return redirect('home');
     	}

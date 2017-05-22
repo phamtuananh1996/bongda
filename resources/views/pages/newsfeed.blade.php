@@ -38,9 +38,12 @@
             </div>
             <div class="form-group">
               <label for="team">Thông tin đội bóng của bạn:</label>
-              @if ($user_login->idclub)
-              <select class="form-control" required name="position" id="position">
-                <option value="">Position</option>
+              @if ($user_login->club->count())
+              <select class="form-control" required name="club_id" id="club_id">
+                <option value="">Chọn đội </option>
+                @foreach ($user_login->club as $club)
+                   <option value="{{$club->id}}">{{$club->name}}</option>
+                @endforeach
               </select>
               @else
                 (Bạn chưa có đội bóng ,hãy tạo đội hoặc gia nhập đội bóng gần bạn để mọi người biết thông tin về đội bóng của bạn)
@@ -147,6 +150,11 @@
                       <p style="font-size: 30px">{{$post->content}}</p>
                       <p style="font-size: 20px">Liên hệ : {{$post->phone}}</p>
                       <p style="font-size: 20px">Địa điểm : {{$post->place}}</p>
+                      @if ($post->club_id)
+                        <p style="font-size: 20px">Đội của tôi : <a href="clubdetail/{{$post->club->id}}">{{$post->club->name}}</a></p>
+                      @endif
+                      
+
                       <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
 
                       @if ($post->like->where('user_id',$user_login->id)->isEmpty())

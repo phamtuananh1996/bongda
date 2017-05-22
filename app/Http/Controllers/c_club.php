@@ -77,7 +77,7 @@ class c_club extends Controller
     public function myteam()
     {
         
-        if(Auth::user()->MemberClub->count())
+        if(Auth::user()->listClub->count())
         {
             return view('clubs.myteam');
         }
@@ -87,4 +87,11 @@ class c_club extends Controller
         }   
     }
 
+
+    public function clubDetail($id)
+    {
+        $club=Club::find($id);
+       
+        return view('clubs.myclubdetail',compact('club'));
+    }
 }

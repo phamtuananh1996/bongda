@@ -23,14 +23,14 @@
               <div class="row">
                 <div class="col-md-3">
                   <div class="user-info-left">
-                  <form method="post" action="editprofile" id="myform">
+                  <form method="post" action="editprofile" id="myform" enctype="multipart/form-data"> 
                    {{ csrf_field() }}
                     <img src="{{$user_login->avatar}}" id="avatar" width="200px" alt="Profile Picture">
                     <h2>{{$user_login->name}}</h2>
                     <div class="contact">
                       <p>
                         <span class="file-input btn btn-azure btn-file">
-                          Change Avatar <input type="file" id="avatar_input"  accept="image/*" multiple="">
+                          Change Avatar <input type="file" id="avatar_input" name="avatar"  accept="image/*" >
                         </span>
                       </p>
                      
@@ -65,20 +65,20 @@
                      <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon">birthday</span>
-                        <input value="" type="date" name="birthday" class="form-control" placeholder="birthday">
+                        <input  type="date" value="{{$user_login->birthday}}" name="birthday" class="form-control" placeholder="birthday">
                       </div>
                     </div>
 
                      <div class="form-group">
                       <div class="input-group">
                         <span class="input-group-addon">Address</span>
-                        <input value="{{$user_login->Address}}" maxlength="200" minlength="3" name="address" type="text" class="form-control" placeholder="Address">
+                        <input value="{{$user_login->address}}" maxlength="200" minlength="3" name="address" type="text" class="form-control" placeholder="Address">
                       </div>
                     </div>
                   			
                     <div class="form-group">
                     <label for="comment">describe:</label>
-                      <textarea minlength="10" maxlength="500" class="form-control" rows="5" name="describe" id="comment"></textarea>
+                      <textarea minlength="10"  maxlength="500" class="form-control" rows="5" name="describe" id="comment">{{$user_login->describe}}</textarea>
                     </div>
                     
                     

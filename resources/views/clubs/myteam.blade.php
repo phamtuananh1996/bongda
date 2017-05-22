@@ -16,7 +16,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($user_login->memberclub as $clubs)
+                @foreach ($user_login->listClub as $clubs)
                    <tr>
                   <td>
                     <img src="{{$clubs->club->avatar}}" alt="">

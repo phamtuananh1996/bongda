@@ -25,6 +25,7 @@
     <script src="assets/dayday/assets/js/jquery.1.11.1.min.js"></script>
     <script src="assets/dayday/bootstrap.3.3.6/js/bootstrap.min.js"></script>
     <script src="assets/dayday/assets/js/custom.js"></script>
+    <script src="js/jquery.validate.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -113,9 +114,9 @@
                       <div class="form-group">
                         <input type="password" class="form-control" id="re_password" required name="re_password" placeholder="Confirm Password">
                       </div>
-                     
+                      <button id="register" type="submit" class="btn btn-azure">Register</button>
                     </form>
-                     <button id="register" class="btn btn-azure">Register</button>
+                    
                   </div>
                 </div>
               </div>
@@ -137,40 +138,34 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-   $(window).on('keydown', function(e) {
-      if (e.which == 13) {
-        return false;
+  
+    $('#form_register').validate(
+    {
+     rules: {
+       
+        re_password: {
+          equalTo: "#password",
+        },
+        email:{
+          remote: 
+                {
+                    url: "ajax/checkemail",
+                    type: "get",
+                    data: {
+                     email: function() {
+                         return $( "#email" ).val();
+                     }
+                 }
+               }
+             }
+       
+      },
+      messages: {
+          re_password:{
+            equalTo:"Mật khẩu không khớp"
+          }
       }
     });
-   $("#register").click(function(event) {
-    $.get('ajax/checkemail', {email: $("#email").val()}, function(data, textStatus, xhr) {
-      if($("#password").val()===$("#re_password").val())
-      {
-        
-        if(data>0)
-        {
-         $("#email").css({
-           'border-color': 'red',
-         });
-       }
-       else
-       {
-        $('#form_register').submit();
-      }
-      
-    }
-    else
-    {
-      $("#re_password").css({
-        'border-color': 'red',
-      });
-      $("#password").css({
-        'border-color': 'red',
-      });
-      
-    }
-  });
-  });
-    
+
   });
 </script>

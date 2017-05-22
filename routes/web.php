@@ -43,10 +43,12 @@ Route::group(['prefix' => '/','middleware'=>'check_login'], function() {
     Route::post('post','c_post@post');
     Route::get('createClub', 'c_club@createClub');
     Route::post('post_create_club','c_club@postCreateClub');
-});
 
+    Route::get('clubdetail/{id}', 'c_club@clubDetail');
+});
+ Route::get('ajax/checkemail','c_user@ajaxGetEmail');
 Route::group(['prefix' => 'ajax','middleware'=>'check_login'], function() {
-    Route::get('checkemail','c_user@ajaxGetEmail');
+   
     Route::post('checkpass','c_user@ajaxCheckPass');
 
     Route::post('getposition','c_user@ajaxCheckposition');

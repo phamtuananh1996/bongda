@@ -44,18 +44,48 @@ class c_user extends Controller
 
     public function proFile()
     {
-        return view('pages.profile');
+        return view('users.profile');
     }
 
     public function editProfile()
     {
-        return view('pages.editprofile');
+        return view('users.editprofile');
     }
 
   
     public function postEditprofile(Request $req)
     {
-       dd($req);
+        if (Auth::check()) {
+            $user=User::find(Auth::user()->id);
+
+            $user->name=$req->name;
+            $user->phone=$req->phone;
+            $user->birthday=$req->birthday;
+            $user->address=$req->address;
+            $user->describe=$req->describe;
+             if($req->avatar)
+            {
+                $nameImage=$req->avatar->getClientOriginalName().time().".".$req->avatar->getClientOriginalExtension();
+
+                $req->avatar->move('images/users', $nameImage);
+
+                //nếu ảnh đã tồn tại thì xóa ảnh cũ thay bằng ảnh mới
+                if(file_exists($user->avatar))
+                {
+                    unlink($user->avatar);
+                }
+
+                $user->avatar='images/users/'.$nameImage;
+             }
+
+             $user->save();
+
+             return redirect('profile');
+        }
+        else
+        {
+            return redirect('login');
+        }
     }
 
     public function register(Request $req)
@@ -104,7 +134,14 @@ class c_user extends Controller
     public function ajaxGetEmail(Request $req)
     {
         $users = DB::table('users')->where('email', '=', $req->email)->get();
-        echo  $users->count();
+        if($users->count())
+        {
+            return "false";   
+        }
+        else
+        {
+            return "true";
+        }
     }
 
     public function registerComfirm(Request $req)
@@ -248,7 +285,7 @@ class c_user extends Controller
         else
         {
             $friend=User::find($req->id);
-            return view('pages.profile_friend',['friend'=>$friend]);
+            return view('users.profile_friend',['friend'=>$friend]);
         }
     }
 

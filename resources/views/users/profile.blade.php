@@ -10,10 +10,8 @@
           <div class="row-xs">
             <div class="main-box clearfix">
               <h2>{{$user_login->name}}</h2>
-              <div class="profile-status">
-                <i class="fa fa-check-circle"></i> chưa có club
-              </div>
-              <img src="{{$user_login->avatar}}" alt="" class="profile-img img-responsive center-block show-in-modal">
+              
+              <img src="{{$user_login->avatar}}" alt="" width="200" class="profile-img img-responsive center-block show-in-modal">
               
               <div class="profile-details">
                 <ul class="fa-ul">
@@ -40,7 +38,7 @@
                 <div class="col-sm-8">
                   <div class="profile-user-details clearfix">
                     <div class="profile-user-details-label">
-                      First Name
+                      Họ Tên
                     </div>
                     <div class="profile-user-details-value">
                       {{$user_login->name}}
@@ -48,15 +46,20 @@
                   </div>
                   <div class="profile-user-details clearfix">
                     <div class="profile-user-details-label">
-                      Last Name
+                      Ngày Sinh:
                     </div>
                     <div class="profile-user-details-value">
-                      Breakgrow
+                     @if ($user_login->birthday)
+                       {{$user_login->birthday}}
+                      @else
+                        chưa cập nhập
+                      @endif
+                      
                     </div>
                   </div>
                   <div class="profile-user-details clearfix">
                     <div class="profile-user-details-label">
-                      Address
+                      Địa chỉ
                     </div>
                     <div class="profile-user-details-value">
                      @if ($user_login->address)
@@ -80,10 +83,15 @@
                   </div>
                   <div class="profile-user-details clearfix">
                     <div class="profile-user-details-label">
-                      Phone number
+                      Số Điện Thoại
                     </div>
                     <div class="profile-user-details-value">
-                      {{$user_login->phone}}
+                     @if ($user_login->phone)
+                        {{$user_login->phone}}
+                      @else
+                        chưa cập nhật
+                      @endif
+                      
                     </div>
                   </div>
                 </div>

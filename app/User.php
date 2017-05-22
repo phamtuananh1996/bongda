@@ -35,11 +35,12 @@ class User extends Authenticatable
 
     public function club()
     {
-        return $this->belongsTo('App\club','idclub','id');
+        return $this->belongsToMany('App\Club','member_club','user_id','club_id');
     }
 
-    public function memberClub()
+    public function listClub()
     {
-         return $this->hasMany('App\MemberClub','user_id','id');
+        return $this->hasMany('App\MemberClub','user_id','id');
     }
+   
 }

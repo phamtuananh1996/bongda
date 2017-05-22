@@ -13,7 +13,7 @@
 
               <ul class="friends">
               
-                 @foreach ($club->user as $member)
+                 @foreach ($club->member as $member)
                       <li>
                       <a href="profile/{{$member->id}}">
                         <img src="{{$member->avatar}}" alt="image">
@@ -76,7 +76,7 @@
                           <li class="padding-v-5">
                             <div class="row">
                               <div class="col-sm-4"><span class="text-muted">Số Thành Viên :</span></div>
-                              <div class="col-sm-8">{{$club->user->count()}}</div>
+                              <div class="col-sm-8">{{$club->member->count()}}</div>
                             </div>
                           </li>
                           <li class="padding-v-5">
@@ -97,7 +97,7 @@
                         <div class="row">
                           <div class="col-md-12">
                             <ul class="img-grid" style="margin: 0 auto;">
-                              @foreach ($club->user as $member)
+                              @foreach ($club->member as $member)
                                
                               <li>
                                 <a href="profile/{{$member->id}}">

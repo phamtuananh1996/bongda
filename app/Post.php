@@ -22,4 +22,8 @@ class Post extends Model
     {
     	return $this->hasMany('App\Like','post_id','id');
     }
+      public function club()
+    {
+        return $this->belongsTo('App\club','club_id','id');
+    }
 }
