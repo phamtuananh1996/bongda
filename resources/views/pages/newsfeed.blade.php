@@ -215,84 +215,12 @@
           <!-- Friends activity -->
           <div class="widget" >
             <div class="widget-header">
-              <h3 class="widget-caption">Friends activity</h3>
+              <h3 class="widget-caption"><i class="fa fa-futbol-o" aria-hidden="true"></i> Đội bóng gần bạn</h3>
             </div>
             <div class="widget-body bordered-top bordered-sky">
               <div class="card">
                 <div class="content">
-                   <ul class="list-unstyled team-members">
-                    <li>
-                      <div class="row">
-                        <div class="col-xs-3">
-                          <div class="avatar">
-                              <img src="img/Friends/woman-2.jpg" alt="img" class="img-circle img-no-padding img-responsive">
-                          </div>
-                        </div>
-                        <div class="col-xs-9">
-                          <b><a href="#">Hillary Markston</a></b> shared a 
-                          <b><a href="#">publication</a></b>. 
-                          <span class="timeago" >5 min ago</span>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="row">
-                        <div class="col-xs-3">
-                          <div class="avatar">
-                              <img src="img/Friends/woman-3.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                          </div>
-                        </div>
-                        <div class="col-xs-9">
-                          <b><a href="#">Leidy marshel</a></b> shared a 
-                          <b><a href="#">publication</a></b>. 
-                          <span class="timeago" >5 min ago</span>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="row">
-                        <div class="col-xs-3">
-                          <div class="avatar">
-                              <img src="img/Friends/woman-4.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                          </div>
-                        </div>
-                        <div class="col-xs-9">
-                          <b><a href="#">Presilla bo</a></b> shared a 
-                          <b><a href="#">publication</a></b>. 
-                          <span class="timeago" >5 min ago</span>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="row">
-                        <div class="col-xs-3">
-                            <div class="avatar">
-                                <img src="img/Friends/woman-4.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                            </div>
-                        </div>
-                        <div class="col-xs-9">
-                          <b><a href="#">Martha markguy</a></b> shared a 
-                          <b><a href="#">publication</a></b>. 
-                          <span class="timeago" >5 min ago</span>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>         
-                </div>
-              </div>
-            </div>
-          </div><!-- End Friends activity -->
-
-          <!-- People You May Know -->
-          <div class="widget">
-           
-            <div class="widget-header">
-              <h3 class="widget-caption">People You May Know</h3>
-            </div>
-            <div class="widget-body bordered-top bordered-sky">
-              <div class="card">
-                  <div class="content">
-                      <ul class="list-unstyled team-members">
+                    <ul class="list-unstyled team-members">
                           <li>
                               <div class="row">
                                   <div class="col-xs-3">
@@ -342,6 +270,42 @@
                               </div>
                           </li>
                       </ul>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Friends activity -->
+
+          <!-- People You May Know -->
+          <div class="widget">
+           
+            <div class="widget-header">
+              <h3 class="widget-caption">Đội bóng của bạn</h3>
+            </div>
+            <div class="widget-body bordered-top bordered-sky">
+              <div class="card">
+                  <div class="content">
+                      
+                  <ul class="list-unstyled team-members">
+                   
+                   @foreach (Auth::user()->club as $club)
+                     <li>
+                      <div class="row">
+                        <div class="col-xs-3">
+                          <div class="avatar">
+                              <img src="{{$club->avatar}}" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                          </div>
+                        </div>
+                        <div class="col-xs-9">
+                          
+                          <b><a href="clubdetail/{{$club->id}}">{{$club->name}}</a></b> 
+                         
+                        </div>
+                      </div>
+                    </li>
+                   @endforeach
+                   
+                    
+                  </ul>       
                   </div>
               </div>          
             </div>

@@ -91,7 +91,7 @@ class c_club extends Controller
     public function clubDetail($id)
     {
         $club=Club::find($id);
-       
+        
         return view('clubs.myclubdetail',compact('club'));
     }
 }

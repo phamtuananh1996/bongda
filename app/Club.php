@@ -25,4 +25,9 @@ class Club extends Model
     {
         return $this->belongsToMany('App\User','member_club','club_id','user_id');
     }
+
+    public function member_club()
+    {
+        return $this->hasMany('App\MemberClub','club_id','id');
+    }
 }

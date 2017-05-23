@@ -24,6 +24,8 @@
                     <span class="user-subhead">
                       @if ($clubs->is_creator==1)
                         Admin
+                      @else
+                        Member
                       @endif
                     </span>
                   </td>

@@ -36,7 +36,19 @@
               <li role="presentation" class=""><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false">Thành viên</a></li>
               <li role="presentation" class=""><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false">Đội hình</a></li>
 
-               <a class="btn btn-azure pull-right" style="margin-right: 10px" href="#" ><i class="fa fa-edit"></i> Sửa Thông Tin </a>
+              @if ($club->member_club->where('user_id', Auth::user()->id)->where('is_creator',1)->count())
+
+                 <a class="btn btn-azure pull-right" style="margin-right: 10px" href="#" ><i class="fa fa-edit"></i> Sửa Thông Tin </a>
+
+              @else
+                @if ($club->member_club->where('user_id', Auth::user()->id)->count())
+                 <a class="btn btn-azure pull-right" style="margin-right: 10px"  ><i class="fa fa-futbol-o" aria-hidden="true"></i> Rời đội bóng </a>
+                 @else
+                 <a class="btn btn-azure pull-right" style="margin-right: 10px"  ><i class="fa fa-futbol-o" aria-hidden="true"></i> Xin gia nhập </a>
+                 @endif
+              @endif
+              
+
             </ul>
 
             </div>
