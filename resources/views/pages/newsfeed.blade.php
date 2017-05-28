@@ -76,8 +76,11 @@
                       <img src="{{$user_login->avatar}}" alt="">
                   </a>
                   <h1>{{$user_login->name}}</h1>
-
-                     <button type="button" style="background: #6CD5EF !important" id="create" class="btn btn-azure center" ><i class="fa fa-plus"></i>Tạo đội bóng</button>
+                    @if ($user_login->listClub->where('user_id',$user_login->id)->where('is_creator',1)->count())
+                    @else
+                      <button type="button" style="background: #6CD5EF !important" id="create" class="btn btn-azure center" ><i class="fa fa-plus"></i>Tạo đội bóng</button>
+                    @endif
+                     
                    
                 </div>
 
@@ -150,9 +153,9 @@
                       <p style="font-size: 30px">{{$post->content}}</p>
                       <p style="font-size: 20px">Liên hệ : {{$post->phone}}</p>
                       <p style="font-size: 20px">Địa điểm : {{$post->place}}</p>
-                      @if ($post->club_id)
+                     {{--  @if (isset($post->club_id))
                         <p style="font-size: 20px">Đội của tôi : <a href="clubdetail/{{$post->club->id}}">{{$post->club->name}}</a></p>
-                      @endif
+                      @endif --}}
                       
 
                       <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
@@ -287,18 +290,28 @@
                       
                   <ul class="list-unstyled team-members">
                    
-                   @foreach (Auth::user()->club as $club)
+                   @foreach ($user_login->listClub->sortByDesc('id') as $clubs)
                      <li>
                       <div class="row">
                         <div class="col-xs-3">
                           <div class="avatar">
-                              <img src="{{$club->avatar}}" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                              <img src="{{$clubs->club->avatar}}" alt="Circle Image" class="img-circle img-no-padding img-responsive">
                           </div>
                         </div>
                         <div class="col-xs-9">
                           
-                          <b><a href="clubdetail/{{$club->id}}">{{$club->name}}</a></b> 
+                          <b><a href="clubdetail/{{$clubs->club->id}}">{{$clubs->club->name}}</a></b> 
+                          
+                            <p><span class="user-subhead">
+                             @if ($clubs->is_creator==1)
+                                Admin
+                              @else
+                                Thành viên
+                             @endif
+                            </span></p>
                          
+                          
+
                         </div>
                       </div>
                     </li>
@@ -316,6 +329,13 @@
 
     
   <script type="text/javascript">
+
+  $(document).ready(function() {
+     
+  });
+
+
+
     $('#create').click(function(event) {
       window.location="createClub";
     });

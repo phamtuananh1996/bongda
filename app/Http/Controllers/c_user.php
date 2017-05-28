@@ -264,6 +264,7 @@ class c_user extends Controller
             $url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($req->latitude).','.trim($req->longitude).'&sensor=false';
             $json = @file_get_contents($url);
             $data = json_decode($json);
+            
             $status = $data->status;
             if($status=="OK"){
         

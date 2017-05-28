@@ -65,6 +65,8 @@ Route::group(['prefix' => 'ajax','middleware'=>'check_login'], function() {
     Route::post('getdistrict', 'c_club@ajaxGetDistrict');
 
      Route::post('getward', 'c_club@ajaxGetWard');
+
+    Route::post('getlongla', 'c_club@ajaxGetLongLa');
 });
 
 Route::get('404', function() {

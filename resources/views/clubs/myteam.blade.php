@@ -16,7 +16,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($user_login->listClub as $clubs)
+                @foreach ($user_login->listClub->sortByDesc('id') as $clubs)
                    <tr>
                   <td>
                     <img src="{{$clubs->club->avatar}}" alt="">
@@ -72,7 +72,10 @@
                       </span>
                     </a>
                   </td>
-
+                   @else
+                    <td style="width: 20%;">
+                    
+                    </td>
                    @endif
                 </tr>
                 @endforeach

@@ -44,8 +44,8 @@ class c_club extends Controller
 
     public function postCreateClub(Request $req)
     {
+        
         $clubs=MemberClub::where(['user_id'=>Auth::user()->id,'is_creator'=>1])->get();
-
         if($clubs->count()==0)
         {
              $club=new Club;
@@ -54,6 +54,8 @@ class c_club extends Controller
              $club->phone=$req->phone;
              $club->province_id=$req->province;
              $club->district_id=$req->district;
+             $club->longtitude=$req->longtitude;
+             $club->latitude=$req->latitude;
              $club->ward_id=$req->ward;
              $club->describe=$req->describe;
              $club->save();
@@ -93,5 +95,36 @@ class c_club extends Controller
         $club=Club::find($id);
         
         return view('clubs.myclubdetail',compact('club'));
+    }
+
+    public function ajaxGetLongLa(Request $req)
+    {
+        if(!empty($req->province) && !empty($req->district)&& !empty($req->ward)){
+
+
+             $string=$req->province.' '.$req->district.' '.$req->ward;
+
+             $arr = str_replace( ' ', '+', $string );
+
+            $url = 'https://maps.googleapis.com/maps/api/geocode/json?address='.$arr.'&key=AIzaSyAWed54z_25kVT_LOabS5IAA8OZhs2FY7w';
+
+
+            $json =@file_get_contents($url);
+            $data = json_decode($json);
+            $status = $data->status;
+            if($status=="OK"){
+                $locations=array();
+                $locations['lat'] = $data->results[0]->geometry->location->lat;
+                $locations['lng'] = $data->results[0]->geometry->location->lng;
+
+            }else{
+                return 'false';
+            }
+    
+            
+        return response()->json($locations);
+           
+
+        }
     }
 }
